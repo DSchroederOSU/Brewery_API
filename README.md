@@ -1,5 +1,3 @@
-# Brewery_API
-
 # I.P.A. API
 
 # Team Members
