@@ -30,7 +30,7 @@ GET, PUT, POST, DELETE
 This is a pre-mature mock up of what I expect my data to look like. (Subject to change).
 
 
-```
+```SQL
 CREATE TABLE beer(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 beer_name VARCHAR(255) NOT NULL,
@@ -46,7 +46,8 @@ FOREIGN KEY (style_id_fk) REFERENCES style(id)
 ```
 
 
-```CREATE TABLE brewery(
+```SQL
+CREATE TABLE brewery(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 brewery_name VARCHAR(255) NOT NULL,
 /*optional contact */
@@ -61,7 +62,7 @@ state VARCHAR(255) NOT NULL,
 );
 ```
 
-```
+```SQL
 CREATE TABLE style(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 style_name VARCHAR(255) NOT NULL,
