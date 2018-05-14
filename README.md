@@ -1,13 +1,18 @@
 # I.P.A. API
 
-## Team Members
+This repository should run out of the box if your machine has Docker installed.
 
-Daniel Schroeder <schrodan@oregonstate.edu>
+```docker-compose up```
 
+Will spin up the database containers and the api container and effectively create a fully functioning API.
 
 ## API Description
 
-This API will act as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is like. Beer data fields can be as broad as beer name and type or go as explicit as the IBU and alcohol content. 
+This API will act as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is like. Beer data fields can be as broad as beer name and type or go as explicit as the IBU and alcohol content.
+
+## Team Members
+
+Daniel Schroeder <schrodan@oregonstate.edu>
 
 ## Nouns:
 
