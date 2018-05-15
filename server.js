@@ -14,13 +14,14 @@ app.use(bodyParser.json());
 
 const MongoClient = require('mongodb').MongoClient;
 
-const mongoHost = process.env.MONGO_HOST || 'localhost';
-const mongoDatabase =process.env.MONGO_DATABASE || 'MEAN_TEST';
-const mongoUser =process.env.MONGO_USER || 'bookaplace';
-const mongoPassword =process.env.MONGO_PASSWORD || 'hunter2';
+/*
+const mongoHost = process.env.MONGO_HOST;
+const mongoDatabase =process.env.MONGO_DATABASE;
+const mongoUser =process.env.MONGO_USER;
+const mongoPassword =process.env.MONGO_PASSWORD;
 const mongoPort =process.env.MONGO_PORT || 27017;
 const mongoURL = `mongodb://${mongoUser}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDatabase}`;
-
+*/
 
 const mysql = require('mysql');
 const mysqlHost = process.env.MYSQL_HOST;
@@ -42,14 +43,17 @@ app.locals.mysqlPool = mysql.createPool({
 // router ======================================================================
 require('./router/router')(app);
 
-
+const mongoHost = process.env.MONGO_HOST || 'localhost';
+const mongoDatabase =process.env.MONGO_DATABASE || 'breweryAPI';
+const mongoUser =process.env.MONGO_USER ||'breweryUser';
+const mongoPassword =process.env.MONGO_PASSWORD || 'breweryPassword';
+const mongoPort =process.env.MONGO_PORT || 27017;
+const mongoURL = `mongodb://${mongoUser}:${mongoPassword}@${mongoHost}:${mongoPort}/${mongoDatabase}`;
 // establish mongo connection
 MongoClient.connect(mongoURL, function (err, client){
    if(!err){
        app.locals.mongoDB = client.db(mongoDatabase);
        app.listen(port, function(){
-           console.log(client);
-           console.log(client.db(mongoDatabase));
            console.log("Server running on port : 3000");
        });
    }

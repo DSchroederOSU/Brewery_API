@@ -6,7 +6,12 @@ var router = express.Router();
 
 // GET /breweries
 router.get('/', function (req, res) {
-    res.status(200).send("Received GET request at http://localhost:3000/breweries");
+    const mongoDB = req.app.locals.mongoDB;
+    const breweriesCollection = mongoDB.collection('brewery');
+    breweriesCollection.find({}).toArray(function(err, breweries) {
+        res.status(200).json({breweries: breweries});
+    });
+
 });
 
 module.exports = router;
