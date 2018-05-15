@@ -1,7 +1,8 @@
 // router/collections/styles.js
 const router = require('express').Router();
 const queryHelper = require('../../lib/queryHelper');
-
+const validation = require('../../lib/validation');
+const styleSchema = require('../../models/style');
 // GET /beers
 router.get('/', function (req, res) {
     queryHelper.getCollectionDocuments(req.app.locals.mongoDB, 'style')

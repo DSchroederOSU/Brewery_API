@@ -7,7 +7,6 @@ const brewerySchema = require('../../models/brewery');
  * Schema describing required/optional fields of a business object.
  */
 
-
 // GET /breweries
 router.get('/', function (req, res) {
     queryHelper.getCollectionDocuments(req.app.locals.mongoDB, 'brewery')

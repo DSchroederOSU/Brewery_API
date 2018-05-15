@@ -1,7 +1,8 @@
 // router/collections/beers.js
 const router = require('express').Router();
 const queryHelper = require('../../lib/queryHelper');
-
+const validation = require('../../lib/validation');
+const beerSchema = require('../../models/beer');
 // GET /beers
 router.get('/', function (req, res) {
     queryHelper.getCollectionDocuments(req.app.locals.mongoDB, 'beer')
