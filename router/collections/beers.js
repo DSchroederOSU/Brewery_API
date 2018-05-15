@@ -1,12 +1,15 @@
-// router/routes/collection.js
-var express = require('express');
-
-// router for ==> /beers
-var router = express.Router();
+// router/collections/beers.js
+const router = require('express').Router();
+const queryHelper = require('../../lib/queryHelper');
 
 // GET /beers
 router.get('/', function (req, res) {
-    res.status(200).send("Received GET request at http://localhost:3000/beers");
+    queryHelper.getCollectionDocuments(req.app.locals.mongoDB, 'beer')
+        .then((beerList)=>{
+            res.status(200).json({beer: beerList});
+        })
+        .catch((err)=>{
+            res.status(500).json({error: err});
+        });
 });
-
-module.exports = router;
+exports.router = router;

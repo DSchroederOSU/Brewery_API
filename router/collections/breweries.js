@@ -1,17 +1,41 @@
-// router/routes/collection.js
-var express = require('express');
+// router/collections/breweries.js
+const router = require('express').Router();
+const queryHelper = require('../../lib/queryHelper');
+const validation = require('../../lib/validation');
+const brewerySchema = require('../../models/brewery');
+/*
+ * Schema describing required/optional fields of a business object.
+ */
 
-// router for ==> /breweries
-var router = express.Router();
 
 // GET /breweries
 router.get('/', function (req, res) {
-    const mongoDB = req.app.locals.mongoDB;
-    const breweriesCollection = mongoDB.collection('brewery');
-    breweriesCollection.find({}).toArray(function(err, breweries) {
-        res.status(200).json({breweries: breweries});
-    });
-
+    queryHelper.getCollectionDocuments(req.app.locals.mongoDB, 'brewery')
+        .then((breweriesList)=>{
+            res.status(200).json({breweries: breweriesList});
+        })
+        .catch((err)=>{
+            res.status(500).json({error: err});
+        });
 });
 
-module.exports = router;
+// POST /breweries
+router.post('/', function (req, res) {
+    if (validation.validateAgainstSchema(res, req.body, brewerySchema) && validation) {
+        queryHelper.insertIntoCollection(req.app.locals.mongoDB, 'brewery', req.body)
+            .then((response)=>{
+                res.status(200).json({
+                    created: response.ops,
+                    links: [{
+                        self: `/breweries/${response.insertedId}`,
+                        collection: `/breweries`
+                    }]
+                });
+            })
+            .catch((err)=>{
+                res.status(500).json({error: err});
+            });
+    }
+});
+
+exports.router = router;

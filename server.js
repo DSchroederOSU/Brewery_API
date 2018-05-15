@@ -42,7 +42,6 @@ app.locals.mysqlPool = mysql.createPool({
 
 // router ======================================================================
 require('./router/router')(app);
-
 const mongoHost = process.env.MONGO_HOST || 'localhost';
 const mongoDatabase =process.env.MONGO_DATABASE || 'breweryAPI';
 const mongoUser =process.env.MONGO_USER ||'breweryUser';
@@ -61,4 +60,3 @@ MongoClient.connect(mongoURL, function (err, client){
        console.log(err);
    }
 });
-

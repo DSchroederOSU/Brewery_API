@@ -8,9 +8,9 @@ module.exports = function (app) {
         res.status(200).send("YOU'VE REACHED THE BASE URL OF YOUR API");
     });
 
-    app.use('/beers', require('./collections/beers'));
-    app.use('/breweries', require('./collections/breweries'));
-    app.use('/styles', require('./collections/styles'));
+    app.use('/beers', require('./collections/beers').router);
+    app.use('/breweries', require('./collections/breweries').router);
+    app.use('/styles', require('./collections/styles').router);
 
     // Catch all
     app.use('*', function (req, res, next){
