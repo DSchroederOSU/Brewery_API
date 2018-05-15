@@ -3,6 +3,7 @@ var logger = require('../lib/logger');
 module.exports = function (app) {
     app.use(logger);
 
+
     app.get('/', function (req, res, next) {
         res.status(200).send("YOU'VE REACHED THE BASE URL OF YOUR API");
     });
