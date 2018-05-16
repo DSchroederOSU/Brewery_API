@@ -25,21 +25,9 @@ GET, PUT, POST, DELETE
 
 ## API Endpoints
 
-|Endpoint|Description|
-|---|---|
-|GET /beers/:beerID|returns information about a specific beer based on the query id|
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
-|   |   |
+![](enpoints.png)
+
+
 
 
 ## Data Storage
