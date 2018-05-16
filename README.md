@@ -25,15 +25,11 @@ GET, PUT, POST, DELETE
 
 ## API Endpoints
 
-![](enpoints.png)
-
-
-
+![](Endpoints.png)
 
 ## Data Storage
 
 This is a pre-mature mock up of what I expect my data to look like. (Subject to change).
-
 
 ```SQL
 CREATE TABLE beer(
@@ -49,7 +45,6 @@ FOREIGN KEY (brewery_id_fk) REFERENCES brewery(id),
 FOREIGN KEY (style_id_fk) REFERENCES style(id)
 );
 ```
-
 
 ```SQL
 CREATE TABLE brewery(
