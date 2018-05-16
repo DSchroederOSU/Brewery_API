@@ -65,4 +65,42 @@ router.get('/:breweryID', function (req, res, next) {
             res.status(500).json({err: err});
         })
 });
+
+router.delete('/:breweryID', function (req, res, next) {
+    let ID = req.params.breweryID;
+    breweryHelper.deleteDocumentByID(req, ID)
+        .then((brewery)=>{
+            console.log(brewery);
+            if(brewery){
+                res.status(202).end();
+            } else{
+                next();
+            }
+        })
+        .catch((err)=>{
+            res.status(500).json({err: err});
+        })
+});
+
+router.get('/:breweryID/styles', function (req, res, next) {
+    let ID = req.params.breweryID;
+    breweryHelper.getBreweryStyles(req, ID)
+        .then((obj)=>{
+            if(obj){
+                res.status(200).json({
+                    brewery: obj.Brewery,
+                    styles: obj.styles,
+                    links: [{
+                        self: `/breweries/${ID}`,
+                        collection: `/breweries`
+                    }]
+                });
+            } else{
+                next();
+            }
+        })
+        .catch((err)=>{
+            res.status(500).json({err: err});
+        })
+});
 exports.router = router;

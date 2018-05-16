@@ -8,11 +8,7 @@ const styleSchema = require('../../models/style');
 
 // GET /styles
 router.get('/', function (req, res) {
-    let search = null;
-    if(req.query.q){
-        search = req.query.q;
-    }
-    queryHelper.getCollectionDocuments(req)
+    styleHelper.getCollectionDocuments(req)
         .then((styleList)=>{
             res.status(200).json({styles: styleList});
         })
@@ -23,7 +19,7 @@ router.get('/', function (req, res) {
 
 router.get('/:styleID', function (req, res, next) {
     let ID = req.params.styleID;
-    queryHelper.getDocumentByID(req, ID)
+    styleHelper.getDocumentByID(req, ID)
         .then((style)=>{
             if(style){
                 res.status(200).json({
@@ -33,6 +29,22 @@ router.get('/:styleID', function (req, res, next) {
                         collection: `/styles`
                     }]
                 });
+            } else{
+                next();
+            }
+        })
+        .catch((err)=>{
+            res.status(500).json({err: err});
+        })
+});
+
+router.delete('/:styleID', function (req, res, next) {
+    let ID = req.params.styleID;
+    styleHelper.deleteDocumentByID(req, ID)
+        .then((style)=>{
+            console.log(style);
+            if(style){
+                res.status(202).end();
             } else{
                 next();
             }

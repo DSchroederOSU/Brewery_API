@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "dotenv": "^5.0.1",
+    "elasticsearch": "^15.0.0",
     "express": "^4.16.3",
     "mongodb": "^3.1.0-beta4",
     "mysql": "^2.15.0",

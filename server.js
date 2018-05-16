@@ -39,6 +39,7 @@ app.locals.mysqlPool = mysql.createPool({
     connectionLimit: maxConnections
 });
 
+//require('lib/elasticsearch');
 
 // router ======================================================================
 require('./router/router')(app);
@@ -54,6 +55,8 @@ MongoClient.connect(mongoURL, function (err, client){
        app.locals.mongoDB = client.db(mongoDatabase);
        app.listen(port, function(){
            console.log("Server running on port : 3000");
+
+
        });
    }
    else{

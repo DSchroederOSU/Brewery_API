@@ -56,4 +56,20 @@ router.post('/', function (req, res, next) {
         res.status(400).json({error: "Incorrect fields in request body."});
     }
 });
+
+router.delete('/:beerID', function (req, res, next) {
+    let ID = req.params.beerID;
+    beerHelper.deleteDocumentByID(req, ID)
+        .then((beer)=>{
+            console.log(beer);
+            if(beer){
+                res.status(202).end();
+            } else{
+                next();
+            }
+        })
+        .catch((err)=>{
+            res.status(500).json({err: err});
+        })
+});
 exports.router = router;
