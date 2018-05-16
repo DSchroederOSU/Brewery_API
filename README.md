@@ -1,7 +1,10 @@
 # Table of Contents
 
 1. [API Description](#api-description)
-2. [Nouns](#nouns)
+2. [Team Members](#team-members)
+3. [Nouns](#nouns)
+4. [Verbs](#verbs)
+5. [API Endpoints](#api-endpoints)
 
 This repository should run out of the box if your machine has Docker installed.
 
