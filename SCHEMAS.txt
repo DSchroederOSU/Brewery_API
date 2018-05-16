@@ -1,6 +1,6 @@
 CREATE TABLE beer(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    beer_name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
     description TEXT,
     in_stores BOOLEAN NOT NULL,
     ibu INT  NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE beer(
 
 CREATE TABLE brewery(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    brewery_name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
 
     /*optional contact */
     website VARCHAR(255),
@@ -30,12 +30,7 @@ CREATE TABLE brewery(
 
 CREATE TABLE style(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    style_name VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
 );
 
-"location": {
-        "brewery_city": "Chico",
-        "brewery_state": "CA",
-        "lat": 39.7246,
-        "lng": -121.816
-      }
+

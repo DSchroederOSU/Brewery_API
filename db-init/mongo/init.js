@@ -10,7 +10,7 @@ db.createUser({
 });
 
 /*
-CREATE TABLE brewery(
+CREATE TABLE breweries(
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     brewery_name VARCHAR(255) NOT NULL,
     /*optional contact
@@ -24,8 +24,8 @@ CREATE TABLE brewery(
     state VARCHAR(255) NOT NULL,
 );
 */
-db.brewery.insert({
-    brewery_name : "Sky High Brewing",
+db.breweries.insert({
+    name : "Sky High Brewing",
     website: "http://skyhighbrewing.com/",
     facebook_url : "https://www.facebook.com/SkyHighBrewing/",
     twitter_url: "https://twitter.com/SkyHighBrewing",
@@ -34,13 +34,13 @@ db.brewery.insert({
     state : "OR"
 });
 /*
-CREATE TABLE style(
+CREATE TABLE styles(
 id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 style_name VARCHAR(255) NOT NULL,
 );
  */
-db.style.insert({
-    style_name: "IPA"
+db.styles.insert({
+    name: "IPA"
 });
 
 /*
@@ -55,8 +55,8 @@ created_at DATE NOT NULL,
     FOREIGN KEY (brewery_id_fk) REFERENCES brewery(id),
     FOREIGN KEY (style_id_fk) REFERENCES style(id)
  */
-db.beer.insert({
-    beer_name: "Freewheel IPA",
+db.beers.insert({
+    name: "Freewheel IPA",
     Description: "For you Freewheeling PNW Hop Heads out there,\n" +
     "we break out our HopBack for our unique take on\n" +
     "IPA. A cornucopia of hop varieties added in the\n" +

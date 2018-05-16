@@ -9,7 +9,8 @@ const brewerySchema = require('../../models/brewery');
 
 // GET /breweries
 router.get('/', function (req, res) {
-    queryHelper.getCollectionDocuments(req.app.locals.mongoDB, 'brewery')
+
+    queryHelper.getCollectionDocuments(req)
         .then((breweriesList)=>{
             res.status(200).json({breweries: breweriesList});
         })

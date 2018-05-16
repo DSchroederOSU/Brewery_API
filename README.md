@@ -73,6 +73,33 @@ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 style_name VARCHAR(255) NOT NULL,
 );
 ```
+
+Schema Definitions for Request Body Validations
+```JavaScript
+const beerSchema = {
+    beer_name: { required: true },
+    description: { required: true },
+    created_on: { required: true },
+    Brewery: { required: true },
+    Style: { required: true },
+};
+```
+```JavaScript
+const brewerySchema = {
+    brewery_name: { required: true },
+    website: { required: false },
+    facebook_url: { required: false },
+    twitter_url: { required: false },
+    address: { required: true },
+    city: { required: true },
+    state: { required: true }
+};
+```
+```JavaScript
+const styleSchema = {
+    style_name: { required: true }
+};
+```
 ## Security
 - A description of the security mechanisms your API will implement.
 
