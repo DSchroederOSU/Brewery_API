@@ -1,7 +1,7 @@
 const beerSchema = {
-    beer_name: { required: true },
+    name: { required: true },
     description: { required: true },
-    created_on: { required: true },
+    created_on: { required: false },
     Brewery: { required: true },
     Style: { required: true },
 };

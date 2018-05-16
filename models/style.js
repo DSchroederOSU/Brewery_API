@@ -1,5 +1,5 @@
 const styleSchema = {
-    style_name: { required: true }
+    name: { required: true }
 };
 
 module.exports = styleSchema;

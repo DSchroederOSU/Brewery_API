@@ -1,6 +1,8 @@
 // router/collections/styles.js
 const router = require('express').Router();
-const queryHelper = require('../../lib/queryHelper');
+const beerHelper = require('../../lib/utils/beerHelper');
+const styleHelper = require('../../lib/utils/styleHelper');
+const breweryHelper = require('../../lib/utils/breweryHelper');
 const validation = require('../../lib/validation');
 const styleSchema = require('../../models/style');
 
@@ -19,5 +21,24 @@ router.get('/', function (req, res) {
         });
 });
 
-
+router.get('/:styleID', function (req, res, next) {
+    let ID = req.params.styleID;
+    queryHelper.getDocumentByID(req, ID)
+        .then((style)=>{
+            if(style){
+                res.status(200).json({
+                    style: style,
+                    links: [{
+                        self: `/styles/${ID}`,
+                        collection: `/styles`
+                    }]
+                });
+            } else{
+                next();
+            }
+        })
+        .catch((err)=>{
+            res.status(500).json({err: err});
+        })
+});
 exports.router = router;

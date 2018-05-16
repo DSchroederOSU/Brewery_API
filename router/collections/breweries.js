@@ -1,6 +1,8 @@
 // router/collections/breweries.js
 const router = require('express').Router();
-const queryHelper = require('../../lib/queryHelper');
+const beerHelper = require('../../lib/utils/beerHelper');
+const styleHelper = require('../../lib/utils/styleHelper');
+const breweryHelper = require('../../lib/utils/breweryHelper');
 const validation = require('../../lib/validation');
 const brewerySchema = require('../../models/brewery');
 /*
@@ -10,7 +12,7 @@ const brewerySchema = require('../../models/brewery');
 // GET /breweries
 router.get('/', function (req, res) {
 
-    queryHelper.getCollectionDocuments(req)
+    breweryHelper.getCollectionDocuments(req)
         .then((breweriesList)=>{
             res.status(200).json({breweries: breweriesList});
         })
@@ -20,9 +22,12 @@ router.get('/', function (req, res) {
 });
 
 // POST /breweries
-router.post('/', function (req, res) {
-    if (validation.validateAgainstSchema(res, req.body, brewerySchema) && validation) {
-        queryHelper.insertIntoCollection(req.app.locals.mongoDB, 'brewery', req.body)
+/*
+This still needs error correction if non-required fills are named wrong or there is a field not defined in schema
+ */
+router.post('/', function (req, res, next) {
+    if (validation.validateAgainstSchema(req.body, brewerySchema) && validation) {
+        breweryHelper.insertIntoCollection(req)
             .then((response)=>{
                 res.status(200).json({
                     created: response.ops,
@@ -35,7 +40,29 @@ router.post('/', function (req, res) {
             .catch((err)=>{
                 res.status(500).json({error: err});
             });
+    } else {
+        res.status(400).json({error: "Incorrect fields in request body."});
     }
 });
 
+router.get('/:breweryID', function (req, res, next) {
+    let ID = req.params.breweryID;
+    breweryHelper.getDocumentByID(req, ID)
+        .then((brewery)=>{
+            if(brewery){
+                res.status(200).json({
+                    brewery: brewery,
+                    links: [{
+                        self: `/breweries/${ID}`,
+                        collection: `/breweries`
+                    }]
+                });
+            } else{
+                next();
+            }
+        })
+        .catch((err)=>{
+            res.status(500).json({err: err});
+        })
+});
 exports.router = router;
