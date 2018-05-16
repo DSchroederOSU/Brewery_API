@@ -3,7 +3,6 @@
 1. [API Description](#api-description)
 2. [Team Members](#team-members)
 3. [Nouns](#nouns)
-4. [Verbs](#verbs)
 5. [API Endpoints](#api-endpoints)
 6. [Data Storage](#data-storage)
 7. [Security](#security)
@@ -25,10 +24,6 @@ Daniel Schroeder <schrodan@oregonstate.edu>
 ## Nouns:
 
 Beers, Breweries, Beer_Types (Lager, IPA, Hazy)
-
-## Verbs:
-
-GET, PUT, POST, DELETE
 
 ## API Endpoints
 
