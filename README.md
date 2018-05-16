@@ -5,6 +5,8 @@
 3. [Nouns](#nouns)
 4. [Verbs](#verbs)
 5. [API Endpoints](#api-endpoints)
+6. [Data Storage](#data-storage)
+7. [Security](#security)
 
 This repository should run out of the box if your machine has Docker installed.
 
@@ -27,7 +29,6 @@ Beers, Breweries, Beer_Types (Lager, IPA, Hazy)
 ## Verbs:
 
 GET, PUT, POST, DELETE
-
 
 ## API Endpoints
 
