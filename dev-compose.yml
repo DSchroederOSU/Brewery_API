@@ -1,19 +1,5 @@
 version: '3.6'
 services:
-  mysql:
-    image: mysql:5
-    restart: always
-    environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
-      MYSQL_DATABASE: businesses
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: password
-    ports:
-      - 3306:3306
-    volumes:
-      - ./db-init/sql:/docker-entrypoint-initdb.d/
-      -  mysql-data:/var/lib/mysql
-
   redis:
     container_name: redis
     image: redis
@@ -33,15 +19,13 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=daniel
       - MONGO_INITDB_ROOT_PASSWORD=test
-      - MONGO_INITDB_DATABASE=yelpAPI
+      - MONGO_INITDB_DATABASE=breweryAPI
     ports:
       - 27017:27017
 volumes:
   mongodb-vol:
     name: mongo-vol
   redis-vol:
-      name: redis-vol
-  mysql-data:
-    name: businesses-mysql-data
+    name: redis-vol
 
 # docker-compose -f dev-compose.yml up
