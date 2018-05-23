@@ -4,6 +4,7 @@
  * User passwords are encrypted with bcrypt library
  * @author Daniel Schroeder <schrodan@oregonstate.edu>
  */
+
 const randomstring = require("randomstring");
 const router = require('express').Router();
 let dbHelper = require('../../lib/db');
@@ -26,32 +27,30 @@ const userSchema = {
  */
 router.post('/login', function (req, res) {
     let mongodb = dbHelper.getMongo();
+    let session_user;
+    let token;
     mongodb.collection('users').findOne({username: req.body.username})
         .then((user) => {
             // will return null user if username does not exist
             if(user){
-                return auth.checkPassword( req.body.password, user);
+                session_user = user;
+                console.log(session_user);
+                return auth.checkPassword( req.body.password, session_user.password);
             } else {
                 return Promise.reject({status: 400, message: "User does not exist."});
             }
         })
-        .then((obj) => {
-            // obj contains api_key value and username from auth Promise
-            // obj = {username: user.username, api: user.api_key}
-
-            let token = jwt.sign({ sub: obj.username, api: obj.api }, process.env.JWT_TOKEN_SECRET, {
+        .then(() => {
+            // if the user was authenticated, we will generate the jwt and add call the addToRedis function
+            token = jwt.sign({sub: session_user.username, api: session_user.api_key}, process.env.JWT_TOKEN_SECRET, {
                 expiresIn: 86400 // expires in 24 hours
             });
+            return addToRedis(session_user);
+        })
+        .then(()=>{
+            // if the api key was successfully added to the redis db
+            // return jwt to the user
             res.status(200).send({ auth: true, token: token });
-            /* add API key to redis table with rate-limiter value of 0
-            redis.generateRedisKey(user.api_key, req.app.locals.redis)
-                .then((result)=>{
-                    res.status(200).send({ auth: true, token: token });
-                })
-                .catch((err)=>{
-                    res.status(500).json({err: err});
-                });
-                */
         })
         .catch((err)=>{
             if(err.status){
@@ -93,9 +92,7 @@ router.post('/signup', function (req, res) {
                 }
             })
             .then(() => {
-                /*
-                    User was successfully created with a hashed password
-                 */
+                // User was successfully created with a hashed password
                 res.status(201).send({ message: "User successfully added."});
             })
             .catch((err)=>{
@@ -114,6 +111,19 @@ router.post('/signup', function (req, res) {
 
 function validateRequestBody(body){
     return validation.validateAgainstSchema(body, userSchema);
+}
+
+function addToRedis(obj){
+    return new Promise(function(resolve, reject){
+        dbHelper.getRedis().set(obj.api_key, 1, 'EX', 30);
+        dbHelper.getRedis().get(obj.api_key, function(err, result) {
+            if(result) {
+                resolve(result);
+            } else{
+                reject(err);
+            }
+        });
+    })
 }
 
 exports.router = router;

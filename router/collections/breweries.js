@@ -5,12 +5,13 @@ const styleHelper = require('../../lib/utils/styleHelper');
 const breweryHelper = require('../../lib/utils/breweryHelper');
 const validation = require('../../lib/validation');
 const brewerySchema = require('../../lib/validation').beerSchema;
+const {validateJWT, checkRateLimit} = require('../../lib/authentication');
 /*
  * Schema describing required/optional fields of a business object.
  */
 
 // GET /breweries
-router.get('/', function (req, res) {
+router.get('/', validateJWT, checkRateLimit, function (req, res) {
 
     breweryHelper.getCollectionDocuments(req)
         .then((breweriesList)=>{
