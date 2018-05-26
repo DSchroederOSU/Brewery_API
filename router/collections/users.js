@@ -5,12 +5,12 @@
  * @author Daniel Schroeder <schrodan@oregonstate.edu>
  */
 
-const randomstring = require("randomstring");
 const router = require('express').Router();
 let dbHelper = require('../../lib/db');
 const validation = require('../../lib/validation');
 const auth = require('../../lib/authentication');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 /*
  * Schema describing required fields of a user object.
  */
@@ -19,11 +19,12 @@ const userSchema = {
     password: { required: true }
 };
 
-/*
-    POST /users/login
-    request body should include a username and password
-    if the user exists, check password against hash in db
-    send a JWT token
+
+/**
+ * POST /users/login
+ * request body should include a username and password
+ * if the user exists, check password against hash in db
+ * send a JWT token
  */
 router.post('/login', function (req, res) {
     let mongodb = dbHelper.getMongo();
@@ -35,26 +36,28 @@ router.post('/login', function (req, res) {
             if(user){
                 session_user = user;
                 console.log(session_user);
+                // module for bycrypt checkPassword function to compare password against hash in db
                 return auth.checkPassword( req.body.password, session_user.password);
             } else {
-                return Promise.reject({status: 400, message: "User does not exist."});
+                return Promise.reject(401);
             }
         })
+        // confirm password and user are correct
         .then(() => {
-            // if the user was authenticated, we will generate the jwt and add call the addToRedis function
-            token = jwt.sign({sub: session_user.username, api: session_user.api_key}, process.env.JWT_TOKEN_SECRET, {
-                expiresIn: 86400 // expires in 24 hours
-            });
-            return addToRedis(session_user);
+            return addToRedis(req.ip);
         })
         .then(()=>{
+            // if the user was authenticated, we will generate the jwt and add call the addToRedis function
+            return auth.generateAuthToken(req.body.username);
+        })
+        .then((token)=>{
             // if the api key was successfully added to the redis db
             // return jwt to the user
             res.status(200).send({ auth: true, token: token });
         })
         .catch((err)=>{
-            if(err.status){
-                res.status(err.status).json({err: err.message});
+            if(err === 401){
+                res.status(401).json({err: " Invalid credentials."});
             } else {
                 res.status(500).json({err: err});
             }
@@ -64,15 +67,14 @@ router.post('/login', function (req, res) {
 });
 
 
-/*
-    POST /users/signup
-    request body should include a username and password
-    make sure user has not already joined
-    create password hash for database, generate API_KEY for rate limiting
-    store fields in DB
+/**
+ * POST /users/signup
+ * request body should include a username and password
+ * make sure user has not already joined
+ * create password hash for database, generate API_KEY
+ * store fields in DB
  */
-router.post('/signup', function (req, res) {
-
+router.post('/ ', function (req, res) {
     if(validation.validateAgainstSchema(req.body, userSchema)){
         // get mongoDB from helper
         let mongodb = dbHelper.getMongo();
@@ -84,11 +86,12 @@ router.post('/signup', function (req, res) {
                 }
                 // if the username was not found, create a new user
                 else {
-                    return mongodb.collection('users').insertOne({
+                    let user = {
                         username : req.body.username,
                         password : auth.hashPassword(req.body.password),
-                        api_key : randomstring.generate(32)
-                    })
+                        api_key :  crypto.randomBytes(48).toString('hex')
+                    };
+                    return mongodb.collection('users').insertOne(user);
                 }
             })
             .then(() => {
@@ -113,11 +116,12 @@ function validateRequestBody(body){
     return validation.validateAgainstSchema(body, userSchema);
 }
 
-function addToRedis(obj){
+function addToRedis(ip){
     return new Promise(function(resolve, reject){
-        dbHelper.getRedis().set(obj.api_key, 1, 'EX', 30);
-        dbHelper.getRedis().get(obj.api_key, function(err, result) {
+        dbHelper.getRedis().set(ip, 1, 'EX', 30);
+        dbHelper.getRedis().get(ip, function(err, result) {
             if(result) {
+                console.log(result);
                 resolve(result);
             } else{
                 reject(err);

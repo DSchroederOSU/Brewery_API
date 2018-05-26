@@ -14,37 +14,16 @@ const dbHelper = require('./lib/db');
 // router ======================================================================
 require('./router/router')(app);
 
-
 /*
 connect to all databases in promise format
  */
 
-function connect(){
-    return new Promise((resolve, reject )=>{
-        dbHelper.connectToRedis()
-            .then(() =>{
-                console.log("== Redis database...connected");
-                return dbHelper.connectToMongo();
-            })
-            .then(()=>{
-                console.log("== MongoDB database...connected");
-                resolve();
-            })
-            .catch((err)=>{
-                reject(err);
-            });
-    });
-
-}
-
-// call the connect function to connect to all databases and start express app
-connect()
-    .then(()=>{
+Promise.all([dbHelper.connectToRedis(), dbHelper.connectToMongo()])
+    .then(function() {
         app.listen(port, function(){
             console.log("Server running on port : 3000");
         });
     })
     .catch((err)=>{
-        console.log(err);
+        reject(err);
     });
-
