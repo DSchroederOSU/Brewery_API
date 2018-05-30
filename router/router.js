@@ -11,6 +11,7 @@ module.exports = function (app) {
     app.use('/beers', require('./collections/beers').router);
     app.use('/breweries', require('./collections/breweries').router);
     app.use('/styles', require('./collections/styles').router);
+    app.use('/users', require('./collections/users').router);
 
     // Catch all
     app.use('*', function (req, res, next){

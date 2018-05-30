@@ -98,6 +98,6 @@ const styleSchema = {
 };
 ```
 ## Security
-- A description of the security mechanisms your API will implement.
+This system will implement JWT-based authentication and potentially include rate-limiting access based on user-specific API keys.
 
 

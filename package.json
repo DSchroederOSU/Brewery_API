@@ -7,11 +7,14 @@
     "lib": "lib"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^5.0.1",
-    "elasticsearch": "^15.0.0",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.1",
     "mongodb": "^3.1.0-beta4",
+    "mongoose": "^5.1.1",
     "mysql": "^2.15.0",
+    "redis": "^2.8.0",
     "request": "^2.85.0",
     "uniqid": "^4.1.1"
   },
@@ -21,7 +24,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "NODE_ENV=development nodemon server.js"
+    "dev": "NODE_ENV=development nodemon server.js",
+    "build": "docker-compose -f dev-compose.yml up",
+    "clean": "docker-compose down -v"
   },
   "repository": {
     "type": "git",

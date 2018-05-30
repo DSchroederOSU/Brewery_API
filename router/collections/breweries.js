@@ -4,13 +4,14 @@ const beerHelper = require('../../lib/utils/beerHelper');
 const styleHelper = require('../../lib/utils/styleHelper');
 const breweryHelper = require('../../lib/utils/breweryHelper');
 const validation = require('../../lib/validation');
-const brewerySchema = require('../../models/brewery');
+const brewerySchema = require('../../lib/validation').beerSchema;
+const {validateJWT, checkRateLimit} = require('../../lib/authentication');
 /*
  * Schema describing required/optional fields of a business object.
  */
 
 // GET /breweries
-router.get('/', function (req, res) {
+router.get('/', validateJWT, checkRateLimit, function (req, res) {
 
     breweryHelper.getCollectionDocuments(req)
         .then((breweriesList)=>{
@@ -86,6 +87,7 @@ router.get('/:breweryID/styles', function (req, res, next) {
     let ID = req.params.breweryID;
     breweryHelper.getBreweryStyles(req, ID)
         .then((obj)=>{
+            console.log(obj);
             if(obj){
                 res.status(200).json({
                     brewery: obj.Brewery,
