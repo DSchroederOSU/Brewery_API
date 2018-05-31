@@ -74,7 +74,7 @@ router.post('/login', function (req, res) {
  * create password hash for database, generate API_KEY
  * store fields in DB
  */
-router.post('/ ', function (req, res) {
+router.post('/signup', function (req, res) {
     if(validation.validateAgainstSchema(req.body, userSchema)){
         // get mongoDB from helper
         let mongodb = dbHelper.getMongo();

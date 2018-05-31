@@ -5,13 +5,14 @@ const styleHelper = require('../../lib/utils/styleHelper');
 const breweryHelper = require('../../lib/utils/breweryHelper');
 const validation = require('../../lib/validation');
 const brewerySchema = require('../../lib/validation').beerSchema;
-const {validateJWT, checkRateLimit} = require('../../lib/authentication');
+const {validateJWT} = require('../../lib/authentication');
+
 /*
  * Schema describing required/optional fields of a business object.
  */
 
 // GET /breweries
-router.get('/', validateJWT, checkRateLimit, function (req, res) {
+router.get('/', validateJWT, function (req, res) {
 
     breweryHelper.getCollectionDocuments(req)
         .then((breweriesList)=>{
@@ -82,6 +83,28 @@ router.delete('/:breweryID', function (req, res, next) {
             res.status(500).json({err: err});
         })
 });
+
+router.get('/:breweryID', function (req, res, next) {
+    let ID = req.params.breweryID;
+    breweryHelper.editDocumentById(req, ID)
+        .then((brewery)=>{
+            if(brewery){
+                res.status(200).json({
+                    brewery: brewery,
+                    links: [{
+                        self: `/breweries/${ID}`,
+                        collection: `/breweries`
+                    }]
+                });
+            } else{
+                next();
+            }
+        })
+        .catch((err)=>{
+            res.status(500).json({err: err});
+        })
+});
+
 
 router.get('/:breweryID/styles', function (req, res, next) {
     let ID = req.params.breweryID;
