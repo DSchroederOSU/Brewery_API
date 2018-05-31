@@ -3,8 +3,8 @@ const router = require('express').Router();
 const beerHelper = require('../../lib/utils/beerHelper');
 const styleHelper = require('../../lib/utils/styleHelper');
 const breweryHelper = require('../../lib/utils/breweryHelper');
-const validation = require('../../lib/validation');
-const beerSchema = require('../../models/beer');
+const {validateAgainstSchema, validateBrewery} = require('../../lib/validation');
+const beerSchema = require('../../models/beerModel').beerSchema;
 // GET /beers
 router.get('/', function (req, res) {
     beerHelper.getCollectionDocuments(req)
@@ -37,24 +37,29 @@ router.get('/:beerID', function (req, res, next) {
         })
 });
 
-router.post('/', function (req, res, next) {
-    if (validation.validateAgainstSchema(req.body, beerSchema) && validation) {
-        beerHelper.insertIntoCollection(req)
-            .then((response)=>{
-                res.status(200).json({
-                    created: response.ops,
-                    links: [{
-                        self: `/beers/${response.insertedId}`,
-                        collection: `/beers`
-                    }]
-                });
-            })
-            .catch((err)=>{
-                res.status(500).json({error: err});
+
+router.post('/', function (req, res) {
+    let beerObject;
+    beerHelper.insertIntoCollection(req)
+        .then((response)=> {
+            console.log(response);
+            beerObject = response.ops[0];
+            console.log(beerObject);
+            return breweryHelper.addBeer(req.brewery, beerObject);
+        })
+        .then((response)=>{
+            res.status(200).json({
+                created: beerObject,
+                links: [{
+                    self: `/beers/${response.insertedId}`,
+                    collection: `/beers`
+                }]
             });
-    } else {
-        res.status(400).json({error: "Incorrect fields in request body."});
-    }
+        })
+        .catch((err)=>{
+            res.status(500).json({error: err});
+        });
+
 });
 
 router.delete('/:beerID', function (req, res, next) {
@@ -72,4 +77,9 @@ router.delete('/:beerID', function (req, res, next) {
             res.status(500).json({err: err});
         })
 });
+
+function setSchema(req, res, next){
+    req.schema = beerSchema;
+    return next();
+}
 exports.router = router;
