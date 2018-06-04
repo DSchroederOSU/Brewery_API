@@ -27,14 +27,14 @@ Beers, Breweries, Beer_Types (Lager, IPA, Hazy)
 
 ## API Endpoints
 
-# GET /breweries
-# POST /breweries
-# GET /breweries/:breweryID
-# DELETE /breweries/:breweryID
-# PUT /breweries/:breweryID
-# GET /breweries/:breweryID/styles
-# GET /breweries/:breweryID/styles/:styleID
-# GET /breweries//:breweryID/beers
+### GET /breweries
+### POST /breweries
+### GET /breweries/:breweryID
+### DELETE /breweries/:breweryID
+### PUT /breweries/:breweryID
+### GET /breweries/:breweryID/styles
+### GET /breweries/:breweryID/styles/:styleID
+### GET /breweries//:breweryID/beers
 
 ## Data Storage
 
