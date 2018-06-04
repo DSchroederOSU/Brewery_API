@@ -1,29 +1,29 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 const brewerySchema = mongoose.Schema({
-    name: String,
-    website: String,
-    facebook_url: String,
-    twitter_url: String,
-    phone: String,
-    address: String,
-    city: String,
-    state:  String,
-    zip: Number,
+    name: { type: String, required: true },
+    website: { type: String, required: false },
+    facebook_url: { type: String, required: false },
+    twitter_url: { type: String, required: false },
+    phone: { type: String, required: true },
+    address: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    zip: { type: Number, required: true },
     beers : [{ type: Schema.Types.ObjectId, ref: 'Beer' }],
 });
 
 const styleSchema = mongoose.Schema({
-    name: String
+    name: { type: String, required: true }
 });
 
 const beerSchema = mongoose.Schema({
-    name: String,
-    description: String,
+    name: { type: String, required: true },
+    description: { type: String, required: true },
     created_on: Date,
-    in_stores:   Boolean,
-    ibu: Number,
-    abv: Number,
+    in_stores: { type: Boolean, required: true },
+    ibu: { type: Number, required: true },
+    abv:{ type: Number, required: true },
     brewery: { type: Schema.Types.ObjectId, ref: 'Brewery' },
     style: { type: Schema.Types.ObjectId, ref: 'Style' },
 });

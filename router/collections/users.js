@@ -75,7 +75,7 @@ router.post('/login', function (req, res) {
  * store fields in DB
  */
 router.post('/signup', function (req, res) {
-    if(validation.validateAgainstSchema(req.body, userSchema)){
+    //if(validation.validateAgainstSchema(req.body, userSchema)){
         // get mongoDB from helper
         let mongodb = dbHelper.getMongo();
         // query to see if the username already exists
@@ -106,9 +106,9 @@ router.post('/signup', function (req, res) {
                 }
 
             })
-    } else {
-        res.status(400).json({err: "Username and password fields required in request body."});
-    }
+    //} else {
+      //  res.status(400).json({err: "Username and password fields required in request body."});
+    //}
 });
 
 

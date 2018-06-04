@@ -4,7 +4,6 @@ const beerHelper = require('../../lib/utils/beerHelper');
 const styleHelper = require('../../lib/utils/styleHelper');
 const breweryHelper = require('../../lib/utils/breweryHelper');
 const validation = require('../../lib/validation');
-const styleSchema = require('../../models/style');
 
 // GET /styles
 router.get('/', function (req, res) {

@@ -4,7 +4,6 @@ const beerHelper = require('../../lib/utils/beerHelper');
 const styleHelper = require('../../lib/utils/styleHelper');
 const breweryHelper = require('../../lib/utils/breweryHelper');
 const {validateAgainstSchema} = require('../../lib/validation');
-const brewerySchema = require('../../models/breweryModel').brewerySchema;
 const {validateJWT} = require('../../lib/authentication');
 
 /*
@@ -27,18 +26,19 @@ router.get('/', validateJWT, function (req, res) {
 /*
 Potential for duplication detection
  */
-router.post('/', setSchema, validateAgainstSchema, function (req, res) {
+router.post('/', function (req, res) {
     breweryHelper.insertIntoCollection(req)
         .then((response)=>{
             res.status(200).json({
-                created: response.ops,
+                created: response,
                 links: [{
-                    self: `/breweries/${response.insertedId}`,
+                    self: `/breweries/${response._id}`,
                     collection: `/breweries`
                 }]
             });
         })
         .catch((err)=>{
+            console.log(err);
             if(err.status){
                 res.status(err.status).json({error: err.err});
             } else{
@@ -50,13 +50,13 @@ router.post('/', setSchema, validateAgainstSchema, function (req, res) {
 
 router.get('/:breweryID', function (req, res, next) {
     let ID = req.params.breweryID;
-    breweryHelper.getDocumentByID(req, ID)
+    breweryHelper.getDocumentByID(ID)
         .then((brewery)=>{
             if(brewery){
                 res.status(200).json({
                     brewery: brewery,
                     links: [{
-                        self: `/breweries/${ID}`,
+                        self: `/breweries/${brewery._id}`,
                         collection: `/breweries`
                     }]
                 });
@@ -72,20 +72,20 @@ router.get('/:breweryID', function (req, res, next) {
 router.delete('/:breweryID', function (req, res, next) {
     let ID = req.params.breweryID;
     breweryHelper.deleteDocumentByID(req, ID)
-        .then((brewery)=>{
-            console.log(brewery);
-            if(brewery){
-                res.status(202).end();
-            } else{
-                next();
-            }
+        .then(()=>{
+            res.status(202).end();
         })
         .catch((err)=>{
-            res.status(500).json({err: err});
+            if(err.status === 404){
+                next();
+            } else{
+                res.status(err.status).json({err: err.error});
+            }
+
         })
 });
 
-router.get('/:breweryID', function (req, res, next) {
+router.put('/:breweryID', function (req, res, next) {
     let ID = req.params.breweryID;
     breweryHelper.editDocumentById(req, ID)
         .then((brewery)=>{
@@ -134,8 +134,4 @@ router.get('/:breweryID/styles', function (req, res, next) {
 middleware function that sets the schema for validation
 allows for dynamic validateAgainstSchema function in validation.js
  */
-function setSchema(req, res, next){
-    req.schema = brewerySchema;
-    return next();
-}
 exports.router = router;
