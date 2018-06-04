@@ -82,25 +82,24 @@ router.post('/', validateSchema, checkForDuplicate, function (req, res) {
 router.delete('/:beerID', function (req, res, next) {
     let ID = req.params.beerID;
     beerHelper.deleteDocumentByID(req, ID)
-        .then((beer)=>{
-            console.log(beer);
-            if(beer){
-                res.status(202).end();
-            } else{
-                next();
-            }
+        .then(()=>{
+            res.status(202).end();
         })
         .catch((err)=>{
-            res.status(500).json({err: err});
+            if(err.status === 404){
+                next();
+            } else{
+                res.status(err.status).json({err: err.error});
+            }
+
         })
 });
-
 
 function checkForDuplicate(req, res, next) {
 
     // query brewery in req body
     // Array.filter results by beer name in req body
-    breweryHelper.checkDuplicate(req.body.Brewery, req.body.name)
+    breweryHelper.checkDuplicateBeer(req.body.Brewery, req.body.name)
         .then((beer)=>{
             if(beer){
                 return res.status(409).json({error: "This beer already exists."})
