@@ -33,6 +33,5 @@ Promise.all([connectToRedis(), connectToMongo()])
         });
     })
     .catch((err)=>{
-        console.log("BOOTY");
         console.log(err);
     });
