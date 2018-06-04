@@ -1,11 +1,14 @@
-# Table of Contents
+# Table of Contents 
 
-1. [API Description](#api-description)
-2. [Team Members](#team-members)
-3. [Nouns](#nouns)
-5. [API Endpoints](#api-endpoints)
-6. [Data Storage](#data-storage)
-7. [Security](#security)
+<!--ts-->
+   * [API Description](#api-description)
+   * [Team Members](#team-members)
+   * [Nouns](#nouns)
+   * [API Endpoints](#api-endpoints)
+      * [GET Breweries](#get-breweries) 
+   * [Data Storage](#data-storage)
+   * [Security](#security)
+<!--te--> 
 
 This repository should run out of the box if your machine has Docker installed.
 
