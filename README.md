@@ -27,10 +27,9 @@ Beers, Breweries, Beer_Types (Lager, IPA, Hazy)
 
 ## API Endpoints
 
-### GET /breweries
-**Title**
-----
-  <_Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple)._>
+### GET Breweries
+
+   A collection of all breweries in the database.
 
 * **URL**
 
@@ -42,8 +41,8 @@ Beers, Breweries, Beer_Types (Lager, IPA, Hazy)
   
 *  **URL Params**
 
-   <_If URL params exist, specify them in accordance with name mentioned in URL section. Separate into optional and required. Document data constraints._> 
-
+   `None`
+   
    **Required:**
  
    `None`
