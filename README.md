@@ -28,6 +28,98 @@ Beers, Breweries, Beer_Types (Lager, IPA, Hazy)
 ## API Endpoints
 
 ### GET /breweries
+**Title**
+----
+  <_Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple)._>
+
+* **URL**
+
+  /breweries
+
+* **Method:** 
+
+  `GET` 
+  
+*  **URL Params**
+
+   <_If URL params exist, specify them in accordance with name mentioned in URL section. Separate into optional and required. Document data constraints._> 
+
+   **Required:**
+ 
+   `None`
+
+   **Optional:**
+   
+   An optional search query that will run as a $Regex expression on the "name" field
+   
+   `search=String`
+
+* **Data Params**
+
+   `None`
+
+* **Success Response:**
+  
+  * **Code:** 200 <br />
+    **Content:** 
+    ```json
+    {
+      "breweries": [
+          {
+              "beers": [
+                  {
+                      "name": "Ridgeback Red"
+                  },
+                  {
+                      "name": "An IPA"
+                  },
+                  {
+                      "name": "An DIPA"
+                  },
+                  {
+                      "name": "My second DIPA"
+                  }
+              ],
+              "_id": "5b149c984959fea7157713bf",
+              "name": "Block 15 Brewing",
+              "website": "http://block15.com/",
+              "facebook_url": "https://www.facebook.com/Block15Brewing",
+              "twitter_url": "https://twitter.com/Block15Brewing",
+              "phone": "541-758-2077",
+              "address": "300 SW Jefferson Ave.",
+              "city": "Corvallis",
+              "state": "OR",
+              "zip": 97330
+          },
+          {
+              "beers": [],
+              "_id": "5b14bff56b6c2910a1d55784",
+              "name": "Mazama Brewing",
+              "website": "http://mazamabrewing.com/contact",
+              "facebook_url": "https://www.facebook.com/MazamaBrewing/",
+              "twitter_url": "https://twitter.com/MazamaBrewing",
+              "address": "33930 SE Eastgate Circle",
+              "phone": "541-230-1810",
+              "city": "Corvallis",
+              "state": "OR",
+              "zip": 97330,
+              "__v": 0
+          }
+        ]
+      }
+    ```
+ 
+* **Error Response:**
+
+  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
+
+  * **Code:** 500 Server Error <br />
+    **Content:** `{ error : error" }`
+
+* **Notes:**
+
+  <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
+
 ### POST /breweries
 ### GET /breweries/:breweryID
 ### DELETE /breweries/:breweryID
