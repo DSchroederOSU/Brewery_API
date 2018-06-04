@@ -33,8 +33,7 @@ Beers, Breweries, Beer_Types (Lager, IPA, Hazy)
 ### GET Breweries
 
    A collection of all breweries in the database.
-
-<!---
+ 
 * **URL**
 
   /breweries
@@ -122,7 +121,7 @@ Beers, Breweries, Beer_Types (Lager, IPA, Hazy)
 * **Notes:**
 
   <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
--->
+ 
 
 ### POST /breweries
 ### GET /breweries/:breweryID
