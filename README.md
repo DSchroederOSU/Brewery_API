@@ -145,7 +145,7 @@ Beers, Breweries, Style (Lager, IPA, Hazy)
 
 ## Data Storage
 
-This is a pre-mature mock up of what I expect my data to look like. (Subject to change).
+Using [mongoose.js](http://mongoosejs.com/) for schema definitions and MongoDB modeling.
 
 ```JavaScript
 const brewerySchema = mongoose.Schema({
