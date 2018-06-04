@@ -16,9 +16,25 @@ router.get('/', function (req, res) {
         });
 });
 
+router.post('/', function (req, res) {
+    styleHelper.insertIntoCollection(req)
+        .then((style)=>{
+            res.status(200).json({
+                created: style,
+                links: [{
+                    self: `/style/${style._id}`,
+                    collection: `/style`
+                }]
+            });
+        })
+        .catch((err)=>{
+            res.status(500).json({error: err});
+        });
+});
+
 router.get('/:styleID', function (req, res, next) {
     let ID = req.params.styleID;
-    styleHelper.getDocumentByID(req, ID)
+    styleHelper.getDocumentByID(ID)
         .then((style)=>{
             if(style){
                 res.status(200).json({
@@ -37,19 +53,42 @@ router.get('/:styleID', function (req, res, next) {
         })
 });
 
-router.delete('/:styleID', function (req, res, next) {
+router.put('/:styleID', function (req, res, next) {
     let ID = req.params.styleID;
-    styleHelper.deleteDocumentByID(req, ID)
+    styleHelper.editDocumentById(req.body, ID)
         .then((style)=>{
-            console.log(style);
             if(style){
-                res.status(202).end();
+                res.status(200).json({
+                    style: {_id: ID, name: req.body.name},
+                    links: [{
+                        self: `/styles/${ID}`,
+                        collection: `/styles`
+                    }]
+                });
             } else{
                 next();
             }
         })
         .catch((err)=>{
             res.status(500).json({err: err});
+        })
+});
+
+
+router.delete('/:styleID', function (req, res, next) {
+    let ID = req.params.styleID;
+    console.log("fs");
+    styleHelper.deleteDocumentByID(req, ID)
+        .then(()=>{
+            res.status(202).end();
+        })
+        .catch((err)=>{
+            if(err.status === 404){
+                next();
+            } else{
+                res.status(err.status).json({err: err.error});
+            }
+
         })
 });
 exports.router = router;

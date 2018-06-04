@@ -132,6 +132,18 @@ Beers, Breweries, Beer_Types (Lager, IPA, Hazy)
 ### GET /breweries/:breweryID/styles/:styleID
 ### GET /breweries//:breweryID/beers
 
+### GET /beers
+### POST /beers
+### GET /beers/:beerID
+### PUT /beers/:beerID 
+### DELETE /beers/:beerID 
+
+### GET /styles
+### POST /styles
+### GET /styles/:styleID
+### PUT /styles/:styleID 
+### DELETE /styles/:styleID 
+
 ## Data Storage
 
 This is a pre-mature mock up of what I expect my data to look like. (Subject to change).

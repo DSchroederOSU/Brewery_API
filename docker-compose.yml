@@ -24,20 +24,21 @@ services:
       - MONGO_INITDB_DATABASE=breweryAPI
     ports:
       - 27017:27017
-
   api:
     build: .
     restart: always
     container_name: "brewery"
+    links:
+      - mongodb
     environment:
+      REDIS_HOST: redis
       MONGO_HOST: mongodb
       MONGO_DATABASE: breweryAPI
       MONGO_USER: breweryUser
       MONGO_PASSWORD: breweryPassword
-    depends_on:
-      - mongodb
     ports:
       - 3000:3000
+
 volumes:
   mongodb-vol:
     name: mongo-vol

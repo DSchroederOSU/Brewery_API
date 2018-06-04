@@ -79,6 +79,27 @@ router.post('/', validateSchema, checkForDuplicate, function (req, res) {
         });
 });
 
+router.put('/:beerID', function (req, res, next) {
+    let ID = req.params.beerID;
+    beerHelper.editDocumentById(req, ID)
+        .then((beer)=>{
+            if(beer){
+                res.status(200).json({
+                    beer: beer,
+                    links: [{
+                        self: `/beer/${ID}`,
+                        collection: `/beer`
+                    }]
+                });
+            } else{
+                next();
+            }
+        })
+        .catch((err)=>{
+            res.status(500).json({err: err});
+        })
+});
+
 router.delete('/:beerID', function (req, res, next) {
     let ID = req.params.beerID;
     beerHelper.deleteDocumentByID(req, ID)
