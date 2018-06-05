@@ -9,23 +9,6 @@ db.createUser({
     ]
 });
 
-
-
-/*
-CREATE TABLE breweries(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    brewery_name VARCHAR(255) NOT NULL,
-    /*optional contact
-    website VARCHAR(255),
-    facebook_url VARCHAR(255),
-    twitter_url VARCHAR(255),
-
-    /* location details
-    address VARCHAR(255) NOT NULL,
-    city VARCHAR(255) NOT NULL,
-    state VARCHAR(255) NOT NULL,
-);
-*/
 db.breweries.insert({
     name : "Sky High Brewing",
     website: "http://skyhighbrewing.com/",
@@ -53,12 +36,6 @@ db.breweries.insert({
 });
 
 
-/*
-CREATE TABLE styles(
-id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-style_name VARCHAR(255) NOT NULL,
-);
- */
 db.styles.insert({
     name: "IPA"
 });

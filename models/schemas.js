@@ -28,8 +28,15 @@ const beerSchema = mongoose.Schema({
     style: { type: Schema.Types.ObjectId, ref: 'Style' },
 });
 
+const userSchema = mongoose.Schema({
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+    api_key: { type: String, required: true }
+});
+
 let Brewery = mongoose.model('Brewery', brewerySchema);
 let Beer = mongoose.model('Beer', beerSchema);
 let Style = mongoose.model('Style', styleSchema);
+let User = mongoose.model('User', userSchema);
 
-module.exports = {Brewery, Beer, Style};
+module.exports = {Brewery, Beer, Style, User};

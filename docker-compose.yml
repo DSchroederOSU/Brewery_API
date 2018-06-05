@@ -3,7 +3,7 @@ version: '3.6'
 
 services:
   redis:
-    container_name: redis
+    container_name: "redis"
     image: redis
     restart: always
     ports:
@@ -28,8 +28,9 @@ services:
     build: .
     restart: always
     container_name: "brewery"
-    links:
-      - mongodb
+    depends_on:
+      - "mongodb"
+      - "redis"
     environment:
       REDIS_HOST: redis
       MONGO_HOST: mongodb
@@ -38,6 +39,9 @@ services:
       MONGO_PASSWORD: breweryPassword
     ports:
       - 3000:3000
+    command: >
+      bash -c "./wait-for-it.sh mongodb:27017
+      && ./wait-for-it.sh redis:6379 -- node server.js"
 
 volumes:
   mongodb-vol:

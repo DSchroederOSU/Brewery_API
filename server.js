@@ -25,12 +25,12 @@ require('./router/router')(app);
 /*
 connect to all databases in promise format
  */
+
+
 const {connectToRedis, connectToMongo} = require('./lib/db');
 Promise.all([connectToRedis(), connectToMongo()])
     .then(function() {
-        app.listen(port, function(){
-            console.log("Server running on port : 3000");
-        });
+
     })
     .catch((err)=>{
         console.log(err);

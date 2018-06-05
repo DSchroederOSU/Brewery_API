@@ -11,6 +11,7 @@ const validation = require('../../lib/validation');
 const auth = require('../../lib/authentication');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const User = require('../../models/schemas').User;
 /*
  * Schema describing required fields of a user object.
  */
@@ -30,6 +31,8 @@ router.post('/login', function (req, res) {
     let mongodb = dbHelper.getMongo();
     let session_user;
     let token;
+
+
     mongodb.collection('users').findOne({username: req.body.username})
         .then((user) => {
             // will return null user if username does not exist
@@ -79,6 +82,16 @@ router.post('/signup', function (req, res) {
         // get mongoDB from helper
         let mongodb = dbHelper.getMongo();
         // query to see if the username already exists
+    User.findOne({username: req.body.username})
+        .exec()
+        .then((user)=>{
+            //this should be null, or else this username already exists
+            if(user)
+            console.log(results);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
         mongodb.collection('users').findOne({username: req.body.username})
             .then((user)=> {
                 if(user){
