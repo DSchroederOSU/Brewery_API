@@ -3,8 +3,9 @@ const router = require('express').Router();
 const beerHelper = require('../../lib/utils/beerHelper');
 const styleHelper = require('../../lib/utils/styleHelper');
 const breweryHelper = require('../../lib/utils/breweryHelper');
-const validation = require('../../lib/validation');
-const beerSchema = require('../../models/beer');
+const Beer = require('../../models/schemas').Beer;
+const {validateAgainstSchema, validateBrewery} = require('../../lib/validation');
+
 // GET /beers
 router.get('/', function (req, res) {
     beerHelper.getCollectionDocuments(req)
@@ -18,7 +19,7 @@ router.get('/', function (req, res) {
 
 router.get('/:beerID', function (req, res, next) {
     let ID = req.params.beerID;
-    beerHelper.getDocumentByID(req, ID)
+    beerHelper.getDocumentByID(ID)
         .then((beer)=>{
             if(beer){
                 res.status(200).json({
@@ -37,33 +38,59 @@ router.get('/:beerID', function (req, res, next) {
         })
 });
 
-router.post('/', function (req, res, next) {
-    if (validation.validateAgainstSchema(req.body, beerSchema) && validation) {
-        beerHelper.insertIntoCollection(req)
-            .then((response)=>{
-                res.status(200).json({
-                    created: response.ops,
-                    links: [{
-                        self: `/beers/${response.insertedId}`,
-                        collection: `/beers`
-                    }]
-                });
-            })
-            .catch((err)=>{
-                res.status(500).json({error: err});
+
+router.post('/', validateSchema, checkForDuplicate, function (req, res) {
+    // validate brewery exists
+    let validBrewery;
+    let validStyle;
+    let beerObject;
+    breweryHelper.getDocumentByID(req.body.Brewery)
+        .then((brewery)=>{
+            if(brewery){
+                validBrewery = brewery;
+                return styleHelper.getDocumentByID(req.body.Style);
+            } else {
+                res.status(404).json({error: "Invalid Brewery in request body."})
+            }
+        })
+        .then((style)=>{
+            if(style){
+                validStyle = style;
+                return beerHelper.insertIntoCollection(validBrewery, validStyle, req.body);
+            } else {
+                res.status(404).json({error: "Invalid Style in request body."})
+            }
+        })
+        .then((response)=> {
+            beerObject = response;
+            return breweryHelper.addBeer(validBrewery, validStyle, beerObject);
+        })
+        .then(()=>{
+            res.status(200).json({
+                created: beerObject,
+                links: [{
+                    self: `/beers/${beerObject._id}`,
+                    collection: `/beers`
+                }]
             });
-    } else {
-        res.status(400).json({error: "Incorrect fields in request body."});
-    }
+        })
+        .catch((err)=>{
+            res.status(500).json({error: err});
+        });
 });
 
-router.delete('/:beerID', function (req, res, next) {
+router.put('/:beerID', function (req, res, next) {
     let ID = req.params.beerID;
-    beerHelper.deleteDocumentByID(req, ID)
+    beerHelper.editDocumentById(req, ID)
         .then((beer)=>{
-            console.log(beer);
             if(beer){
-                res.status(202).end();
+                res.status(200).json({
+                    beer: beer,
+                    links: [{
+                        self: `/beer/${ID}`,
+                        collection: `/beer`
+                    }]
+                });
             } else{
                 next();
             }
@@ -72,4 +99,47 @@ router.delete('/:beerID', function (req, res, next) {
             res.status(500).json({err: err});
         })
 });
+
+router.delete('/:beerID', function (req, res, next) {
+    let ID = req.params.beerID;
+    beerHelper.deleteDocumentByID(req, ID)
+        .then(()=>{
+            res.status(202).end();
+        })
+        .catch((err)=>{
+            if(err.status === 404){
+                next();
+            } else{
+                res.status(err.status).json({err: err.error});
+            }
+
+        })
+});
+
+function checkForDuplicate(req, res, next) {
+
+    // query brewery in req body
+    // Array.filter results by beer name in req body
+    breweryHelper.checkDuplicateBeer(req.body.Brewery, req.body.name)
+        .then((beer)=>{
+            if(beer){
+                return res.status(409).json({error: "This beer already exists."})
+            } else {
+                return next();
+            }
+        })
+        .catch((err)=>{
+            console.log(err);
+            return res.status(500).json({error: "Oops, that's on us."})
+        });
+}
+
+function validateSchema(req, res, next) {
+    let error = new Beer(req.body).validateSync();
+    if(error){
+        res.status(400).json({error: `${error.errors.name.name}: ${error.errors.name.message}`})
+    } else {
+        return next();
+    }
+}
 exports.router = router;

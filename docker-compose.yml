@@ -1,0 +1,49 @@
+# Use root/example as user/password credentials
+version: '3.6'
+
+services:
+  redis:
+    container_name: "redis"
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      -  redis-vol:/data
+
+  mongodb:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongodb-vol:/data/db
+      - ./db-init/mongo:/docker-entrypoint-initdb.d/
+    container_name: "mongodb"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=daniel
+      - MONGO_INITDB_ROOT_PASSWORD=test
+      - MONGO_INITDB_DATABASE=breweryAPI
+    ports:
+      - 27017:27017
+  api:
+    build: .
+    restart: always
+    container_name: "brewery"
+    depends_on:
+      - "mongodb"
+      - "redis"
+    environment:
+      REDIS_HOST: redis
+      MONGO_HOST: mongodb
+      MONGO_DATABASE: breweryAPI
+      MONGO_USER: breweryUser
+      MONGO_PASSWORD: breweryPassword
+    ports:
+      - 3000:3000
+    command: >
+      bash -c "./wait-for-it.sh mongodb:27017 && ./wait-for-it.sh redis:6379 -- node server.js"
+
+volumes:
+  mongodb-vol:
+    name: mongo-vol
+  redis-vol:
+    name: redis-vol

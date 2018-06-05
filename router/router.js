@@ -1,8 +1,10 @@
 // server/router/router.js
-var logger = require('../lib/logger');
+let logger = require('../lib/logger');
+let {rateLimit} = require('../lib/rateLimiting');
+
 module.exports = function (app) {
     app.use(logger);
-
+    app.use(rateLimit);
 
     app.get('/', function (req, res, next) {
         res.status(200).send("YOU'VE REACHED THE BASE URL OF YOUR API");
