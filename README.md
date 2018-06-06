@@ -48,7 +48,7 @@ It is known that this API contains security concerns.
       * [Update style by ID](#update-style-by-id)
       * [Delete style by ID](#delete-style-by-id)                   
   * [Data Storage](#data-storage)
-    * [Mongoose.js](#mongoose.js)
+    * [Mongoose.js](#mongoose-js)
     * [Redis](#redis)
     * [MongoDB](#mongodb)
   * [Security](#security)
@@ -214,7 +214,7 @@ const userSchema = mongoose.Schema({
 
 ## Data Storage
 
-### Mongoose.js
+### Mongoose js
 
 <img src="./assets/mongoosejs.png" alt="s" width="500px"/>
 
