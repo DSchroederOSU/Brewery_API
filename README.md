@@ -5,7 +5,11 @@
    * [Team Members](#team-members)
    * [Nouns](#nouns)
    * [API Endpoints](#api-endpoints)
+      * [GET Breweries](#get-all-breweries) 
+      * [POST Breweries](#create-brewery) 
+      * [GET brewery by ID](#GET brewery by ID) 
       * [GET Breweries](#get-breweries) 
+      * [GET Breweries](#get-breweries)       
    * [Data Storage](#data-storage)
    * [Security](#security)
 <!--te--> 
@@ -24,7 +28,7 @@ This API will act as service for information related to beers and breweries. Spe
 
 Daniel Schroeder <schrodan@oregonstate.edu>
 
-## Nouns:
+## Nouns
 
 Beers, Breweries, Style (Lager, IPA, Hazy)
 
@@ -123,8 +127,8 @@ Beers, Breweries, Style (Lager, IPA, Hazy)
   <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
  
 
-### POST /breweries
-### GET /breweries/:breweryID
+### Create brewery
+### GET brewery by ID
 ### DELETE /breweries/:breweryID
 ### PUT /breweries/:breweryID
 ### GET /breweries/:breweryID/styles
