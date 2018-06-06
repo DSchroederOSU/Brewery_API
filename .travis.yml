@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "iojs"
+  - "7"
+env:
+  # You may want to update this to whatever the latest version is, or keep it
+  # the same as your local machines. However, I have only tested it with 1.8.0+.
+  # There should be a time in the future when this is not necessary - it is
+  # explained in more detail below.
+  DOCKER_COMPOSE_VERSION: 1.8.0
+
+before_install:
+
+  # Setup your application stack. You may need to tweak these commands if you
+  # doing out-of-the-ordinary docker-compose builds.
+  - docker-compose build
+  - docker-compose up
