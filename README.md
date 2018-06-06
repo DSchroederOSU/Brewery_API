@@ -1,3 +1,8 @@
+## API Description
+
+This API will act as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is like. Beer data fields can be as broad as beer name and type or go as explicit as the IBU and alcohol content.
+
+[![Build Status](https://travis-ci.org/DSchroederOSU/Brewery_API.svg?branch=master)](https://travis-ci.org/DSchroederOSU/Brewery_API)
 # Table of Contents 
 
 <!--ts-->
@@ -35,10 +40,6 @@ This repository should run out of the box if your machine has Docker installed.
 ```docker-compose up```
 
 Will spin up the database containers and the api container and effectively create a fully functioning API.
-
-## API Description
-
-This API will act as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is like. Beer data fields can be as broad as beer name and type or go as explicit as the IBU and alcohol content.
 
 ## Team Members
 
