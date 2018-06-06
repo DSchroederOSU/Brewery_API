@@ -5,9 +5,9 @@
   * [Team Members](#team-members)
   * [Nouns](#nouns)
   * [API Endpoints](#api-endpoints)
-  
-      * [Get all breweries](#get-all-breweries) 
-          * [Create new brewery](#create-brewery)
+    * [BREWERIES](#breweries)
+        * [Get all breweries](#get-all-breweries) 
+        * [Create new brewery](#create-brewery)
       * [Get brewery by ID](#get-brewery-by-id) 
       * [Delete brewery by ID](#delete-brewery-by-id)
       * [Update brewery by ID](#update-brewery-by-id)
@@ -37,8 +37,8 @@ Daniel Schroeder <schrodan@oregonstate.edu>
 Beers, Breweries, Style (Lager, IPA, Hazy)
 
 ## API Endpoints
-
-### Get all breweries
+### Breweries
+#### Get all breweries
 
    A collection of all breweries in the database.
  
@@ -131,25 +131,25 @@ Beers, Breweries, Style (Lager, IPA, Hazy)
   <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
  
 
-### Create brewery
-### Get brewery by ID
-### Delete brewery by ID
-### Update brewery by ID
-### Get brewery styles
-### Get brewery beers by style
-### Get beers for specific brewery
+#### Create brewery
+#### Get brewery by ID
+#### Delete brewery by ID
+#### Update brewery by ID
+#### Get brewery styles
+#### Get brewery beers by style
+#### Get beers for specific brewery
 
-### GET /beers
-### POST /beers
-### GET /beers/:beerID
-### PUT /beers/:beerID 
-### DELETE /beers/:beerID 
+#### GET /beers
+#### POST /beers
+#### GET /beers/:beerID
+#### PUT /beers/:beerID 
+#### DELETE /beers/:beerID 
 
-### GET /styles
-### POST /styles
-### GET /styles/:styleID
-### PUT /styles/:styleID 
-### DELETE /styles/:styleID 
+#### GET /styles
+#### POST /styles
+#### GET /styles/:styleID
+#### PUT /styles/:styleID 
+#### DELETE /styles/:styleID 
 
 ## Data Storage
 
