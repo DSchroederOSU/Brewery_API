@@ -26,7 +26,6 @@ require('./router/router')(app);
 connect to all databases in promise format
  */
 
-
 const {connectToRedis, connectToMongo} = require('./lib/db');
 Promise.all([connectToRedis(), connectToMongo()])
     .then(function() {
