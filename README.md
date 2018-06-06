@@ -26,7 +26,7 @@ It is known that this API contains security concerns.
     * [Style](#style)
     * [User](#user)
   * [API Endpoints](#api-endpoints)
-    * [BREWERIES](#breweries)
+    * [Breweries](#breweries)
       * [Get all breweries](#get-all-breweries) 
       * [Create new brewery](#create-brewery)
       * [Get brewery by ID](#get-brewery-by-id) 
@@ -35,13 +35,13 @@ It is known that this API contains security concerns.
       * [Get brewery styles](#get-brewery-styles) 
       * [Get brewery beers by style](#get-brewery-beers-by-style)     
       * [Get beers for specific brewery](#get-beers-for-specific-brewery) 
-    * [BEERS](#breweries)
+    * [Beers](#beers)
       * [Get all beers](#get-all-beers) 
       * [Create new beer](#create-beer)
       * [Get beer by ID](#get-beer-by-id) 
       * [Update beer by ID](#update-beer-by-id)
       * [Delete beer by ID](#delete-beer-by-id)
-    * [STYLES](#breweries)
+    * [Styles](#styles)
       * [Get all styles](#get-all-styles) 
       * [Create new style](#create-style)
       * [Get style by ID](#get-style-by-id) 
@@ -195,12 +195,14 @@ const userSchema = mongoose.Schema({
 #### Get brewery beers by style
 #### Get beers for specific brewery
 
+### Beers
 #### Get all beers
 #### Create beer
 #### Get beer by ID
 #### Update beer by ID
 #### Delete beer by ID
 
+### Styles
 #### Get all styles
 #### Create style
 #### Get style by ID

@@ -24,6 +24,7 @@ services:
       - MONGO_INITDB_DATABASE=breweryAPI
     ports:
       - 27017:27017
+
   api:
     build: .
     restart: always
@@ -40,7 +41,8 @@ services:
     ports:
       - 3000:3000
     command: >
-      bash -c "./wait-for-it.sh mongodb:27017 && ./wait-for-it.sh redis:6379 -- node server.js"
+      bash -c "./wait-for-it.sh mongodb:27017
+      && ./wait-for-it.sh redis:6379 -- node server.js"
 
 volumes:
   mongodb-vol:
