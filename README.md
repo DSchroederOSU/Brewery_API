@@ -210,17 +210,15 @@ const userSchema = mongoose.Schema({
 #### Delete style by ID
 
 ## Data Storage
-![](./assets/mongoosejs.png)
+<img src="./assets/mongoosejs.png" alt="s" width="500px"/>
 
 Using [mongoose.js](http://mongoosejs.com/) for schema definitions and MongoDB modeling.
 
-![](./assets/redis.png)
+<img src="./assets/redis.png" alt="s" width="500px"/>
 
 Using Redis for rate limiting.
 
-<img src="./assets/mongodb.png" alt="s" width="500px"/>
-
-![](./assets/mongodb.png)
+<img src="./assets/mongodb.png" alt="s" width="500px"/> 
 
 Using MongoDB to store all API documents.
 
