@@ -22,7 +22,7 @@
     "nodemon": "^1.17.5"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
     "start": "node server.js",
     "dev": "NODE_ENV=development nodemon server.js",
     "build": "docker-compose -f dev-compose.yml up",
