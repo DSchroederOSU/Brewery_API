@@ -8,8 +8,11 @@
       * [GET Breweries](#get-all-breweries) 
       * [POST Breweries](#create-brewery) 
       * [GET brewery by ID](#get-brewery-by-id) 
-      * [DELETE /breweries/:breweryID](#delete-brewery-by-id) 
-      * [GET Breweries](#get-breweries)       
+      * [DELETE brewery by ID](#delete-brewery-by-id)
+      * [Update brewery by ID](#update-brewery-by-id)
+      * [Get brewery styles](#get-brewery-styles) 
+      * [Get brewery beers by style](#get-brewery-beers-by-style)     
+      * [Get beers for specific brewery](#get-beers-for-specific-brewery)       
    * [Data Storage](#data-storage)
    * [Security](#security)
 <!--te--> 
@@ -129,11 +132,11 @@ Beers, Breweries, Style (Lager, IPA, Hazy)
 
 ### Create brewery
 ### Get brewery by ID
-### Delete brewery by id
-### PUT /breweries/:breweryID
-### GET /breweries/:breweryID/styles
-### GET /breweries/:breweryID/styles/:styleID
-### GET /breweries//:breweryID/beers
+### Delete brewery by ID
+### Update brewery by ID
+### Get brewery styles
+### Get brewery beers by style
+### Get beers for specific brewery
 
 ### GET /beers
 ### POST /beers
