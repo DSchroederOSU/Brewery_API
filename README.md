@@ -215,21 +215,21 @@ const userSchema = mongoose.Schema({
 ## Data Storage
 
 ### Mongoose js
--
+--
 
 <img src="./assets/mongoosejs.png" alt="s" width="500px"/>
 
 Using [mongoose.js](http://mongoosejs.com/) for schema definitions and MongoDB modeling.
 
 ### Redis 
--
+--
 
 <img src="./assets/redis.png" alt="s" width="500px"/>
 
 Using Redis for rate limiting.
 
 ### MongoDB 
--
+--
 
 <img src="./assets/mongodb.png" alt="s" width="500px"/> 
 
