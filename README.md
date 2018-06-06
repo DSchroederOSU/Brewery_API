@@ -24,6 +24,7 @@ It is known that this API contains security concerns.
     * [Brewery](#brewery)
     * [Beer](#beer)
     * [Style](#style)
+    * [User](#user)
   * [API Endpoints](#api-endpoints)
     * [BREWERIES](#breweries)
       * [Get all breweries](#get-all-breweries) 
@@ -99,29 +100,30 @@ const styleSchema = mongoose.Schema({
 });
 ```
 
+### User
+```JavaScript
+const userSchema = mongoose.Schema({
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+    api_key: { type: String, required: true }
+});
+```
+
 ## API Endpoints
 ### Breweries
 #### Get all breweries
 
    A collection of all breweries in the database.
  
-* **URL**
+* **URL:** /breweries
 
-  /breweries
-
-* **Method:** 
-
-  `GET` 
+* **Method:**  `GET` 
   
 *  **URL Params**
    
-   **Required:**
- 
-   `None`
+   **Required:** `None`
 
-   **Optional:**
-   
-   An optional search query that will run as a $Regex expression on the "name" field
+   **Optional:**  An optional search query that will run as a $Regex expression on the "name" field
    
    `search=String`
 
