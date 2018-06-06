@@ -211,12 +211,15 @@ const userSchema = mongoose.Schema({
 
 ## Data Storage
 ![](./assets/mongoosejs.png)
+
 Using [mongoose.js](http://mongoosejs.com/) for schema definitions and MongoDB modeling.
 
 ![](./assets/redis.png)
+
 Using Redis for rate limiting.
 
 ![](./assets/mongodb.png)
+
 Using MongoDB to store all API documents.
 
 ## Security
