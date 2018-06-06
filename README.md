@@ -63,8 +63,6 @@ Beers, Breweries, Style (Lager, IPA, Hazy)
   `GET` 
   
 *  **URL Params**
-
-   `None`
    
    **Required:**
  
@@ -133,15 +131,8 @@ Beers, Breweries, Style (Lager, IPA, Hazy)
  
 * **Error Response:**
 
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
-
   * **Code:** 500 Server Error <br />
-    **Content:** `{ error : error" }`
-
-* **Notes:**
-
-  <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
- 
+    **Content:** `{ error : "error" }`
 
 #### Create brewery
 #### Get brewery by ID
