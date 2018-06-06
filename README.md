@@ -21,6 +21,9 @@ It is known that this API contains security concerns.
   * [API Description](#api-description)
   * [Team Members](#team-members)
   * [Nouns](#nouns)
+    * [Brewery](#brewery)
+    * [Beer](#beer)
+    * [Style](#style)
   * [API Endpoints](#api-endpoints)
     * [BREWERIES](#breweries)
       * [Get all breweries](#get-all-breweries) 
@@ -59,7 +62,7 @@ Daniel Schroeder <schrodan@oregonstate.edu>
 
 ## Nouns
 
-Brewery
+### Brewery
 ```JavaScript
 const brewerySchema = mongoose.Schema({
     name: { type: String, required: true },
@@ -75,7 +78,7 @@ const brewerySchema = mongoose.Schema({
 });
 ```
 
-Beer
+### Beer
 ```JavaScript
 const beerSchema = mongoose.Schema({
     name: { type: String, required: true },
@@ -89,7 +92,7 @@ const beerSchema = mongoose.Schema({
 });
 ```
 
-Style
+### Style
 ```JavaScript
 const styleSchema = mongoose.Schema({
     name: { type: String, required: true }
