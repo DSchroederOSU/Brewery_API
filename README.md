@@ -5,8 +5,9 @@
   * [Team Members](#team-members)
   * [Nouns](#nouns)
   * [API Endpoints](#api-endpoints)
+  
       * [Get all breweries](#get-all-breweries) 
-      * [Create new brewery](#create-brewery) 
+          * [Create new brewery](#create-brewery)
       * [Get brewery by ID](#get-brewery-by-id) 
       * [Delete brewery by ID](#delete-brewery-by-id)
       * [Update brewery by ID](#update-brewery-by-id)
