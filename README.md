@@ -1,4 +1,4 @@
-## API Description
+#  API Description
 
 This API was a final project for my CS 493 (Cloud Application Development) course at Oregon State University. This API acts as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is all about. Beer data fields can be as broad as beer name and type, or go as explicit as the International Bitterness Units (ibu) and Alcohol by Volume (abv) value. This project was a chance for me to explore, and implement, a variety of cutting-edge technologies and concepts that are standard in cloud application development including:
 * Docker and Docker-compose containerization
@@ -60,13 +60,13 @@ This repository should run out of the box if your machine has Docker installed.
 
 Will spin up the database containers and the api container and effectively create a fully functioning API.
 
-## Team Members
+#  Team Members
 
 Daniel Schroeder <schrodan@oregonstate.edu>
 
-## Nouns
+#  Nouns
 
-### Brewery
+## Brewery
 ```JavaScript
 const brewerySchema = mongoose.Schema({
     name: { type: String, required: true },
@@ -82,7 +82,7 @@ const brewerySchema = mongoose.Schema({
 });
 ```
 
-### Beer
+## Beer
 ```JavaScript
 const beerSchema = mongoose.Schema({
     name: { type: String, required: true },
@@ -96,14 +96,14 @@ const beerSchema = mongoose.Schema({
 });
 ```
 
-### Style
+## Style
 ```JavaScript
 const styleSchema = mongoose.Schema({
     name: { type: String, required: true }
 });
 ```
 
-### User
+## User
 ```JavaScript
 const userSchema = mongoose.Schema({
     username: { type: String, required: true },
@@ -112,9 +112,9 @@ const userSchema = mongoose.Schema({
 });
 ```
 
-## API Endpoints
-### Breweries
-#### Get all breweries
+#  API Endpoints
+## Breweries
+### Get all breweries
 
    A collection of all breweries in the database.
  
@@ -190,48 +190,48 @@ const userSchema = mongoose.Schema({
   * **Code:** 500 Server Error <br />
     **Content:** `{ error : "error" }`
 
-#### Create brewery
-#### Get brewery by ID
-#### Delete brewery by ID
-#### Update brewery by ID
-#### Get brewery styles
-#### Get brewery beers by style
-#### Get beers for specific brewery
+### Create brewery
+### Get brewery by ID
+### Delete brewery by ID
+### Update brewery by ID
+### Get brewery styles
+### Get brewery beers by style
+### Get beers for specific brewery
 
-### Beers
-#### Get all beers
-#### Create beer
-#### Get beer by ID
-#### Update beer by ID
-#### Delete beer by ID
+## Beers
+### Get all beers
+### Create beer
+### Get beer by ID
+### Update beer by ID
+### Delete beer by ID
 
-### Styles
-#### Get all styles
-#### Create style
-#### Get style by ID
-#### Update style by ID
-#### Delete style by ID
+## Styles
+### Get all styles
+### Create style
+### Get style by ID
+### Update style by ID
+### Delete style by ID
 
-## Data Storage
+#  Data Storage
 
-### Mongoose js 
+## Mongoose js 
 
 <img src="./assets/mongoosejs.png" alt="s" width="500px"/>
 
 Using [mongoose.js](http://mongoosejs.com/) for schema definitions and MongoDB modeling.
 
-### Redis  
+## Redis  
 
 <img src="./assets/redis.png" alt="s" width="500px"/>
 
 Using Redis for rate limiting.
 
-### MongoDB  
+## MongoDB  
 
 <img src="./assets/mongodb.png" alt="s" width="500px"/> 
 
 Using MongoDB to store all API documents.
 
-## Security
+#  Security
 This system will implement JWT-based authentication and potentially include rate-limiting access based on user-specific API keys.
 
