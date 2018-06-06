@@ -218,6 +218,8 @@ Using [mongoose.js](http://mongoosejs.com/) for schema definitions and MongoDB m
 
 Using Redis for rate limiting.
 
+<img src="./assets/mongodb.png" alt="s" width="500px"/>
+
 ![](./assets/mongodb.png)
 
 Using MongoDB to store all API documents.
