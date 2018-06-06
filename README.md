@@ -7,8 +7,8 @@
    * [API Endpoints](#api-endpoints)
       * [GET Breweries](#get-all-breweries) 
       * [POST Breweries](#create-brewery) 
-      * [GET brewery by ID](#GET brewery by ID) 
-      * [GET Breweries](#get-breweries) 
+      * [GET brewery by ID](#get-brewery-by-id) 
+      * [DELETE /breweries/:breweryID](#delete-brewery-by-id) 
       * [GET Breweries](#get-breweries)       
    * [Data Storage](#data-storage)
    * [Security](#security)
@@ -128,8 +128,8 @@ Beers, Breweries, Style (Lager, IPA, Hazy)
  
 
 ### Create brewery
-### GET brewery by ID
-### DELETE /breweries/:breweryID
+### Get brewery by ID
+### Delete brewery by id
 ### PUT /breweries/:breweryID
 ### GET /breweries/:breweryID/styles
 ### GET /breweries/:breweryID/styles/:styleID
