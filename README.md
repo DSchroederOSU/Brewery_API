@@ -1,20 +1,20 @@
 # Table of Contents 
 
 <!--ts-->
-   * [API Description](#api-description)
-   * [Team Members](#team-members)
-   * [Nouns](#nouns)
-   * [API Endpoints](#api-endpoints)
-      * [GET Breweries](#get-all-breweries) 
-      * [POST Breweries](#create-brewery) 
-      * [GET brewery by ID](#get-brewery-by-id) 
-      * [DELETE brewery by ID](#delete-brewery-by-id)
+  * [API Description](#api-description)
+  * [Team Members](#team-members)
+  * [Nouns](#nouns)
+  * [API Endpoints](#api-endpoints)
+      * [Get all breweries](#get-all-breweries) 
+      * [Create new brewery](#create-brewery) 
+      * [Get brewery by ID](#get-brewery-by-id) 
+      * [Delete brewery by ID](#delete-brewery-by-id)
       * [Update brewery by ID](#update-brewery-by-id)
       * [Get brewery styles](#get-brewery-styles) 
       * [Get brewery beers by style](#get-brewery-beers-by-style)     
       * [Get beers for specific brewery](#get-beers-for-specific-brewery)       
-   * [Data Storage](#data-storage)
-   * [Security](#security)
+  * [Data Storage](#data-storage)
+  * [Security](#security)
 <!--te--> 
 
 This repository should run out of the box if your machine has Docker installed.
