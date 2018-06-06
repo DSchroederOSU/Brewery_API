@@ -210,9 +210,15 @@ const userSchema = mongoose.Schema({
 #### Delete style by ID
 
 ## Data Storage
-
+![](./assets/mongoosejs.png)
 Using [mongoose.js](http://mongoosejs.com/) for schema definitions and MongoDB modeling.
- 
+
+![](./assets/redis.png)
+Using Redis for rate limiting.
+
+![](./assets/mongodb.png)
+Using MongoDB to store all API documents.
+
 ## Security
 This system will implement JWT-based authentication and potentially include rate-limiting access based on user-specific API keys.
 
