@@ -6,14 +6,26 @@
   * [Nouns](#nouns)
   * [API Endpoints](#api-endpoints)
     * [BREWERIES](#breweries)
-        * [Get all breweries](#get-all-breweries) 
-        * [Create new brewery](#create-brewery)
+      * [Get all breweries](#get-all-breweries) 
+      * [Create new brewery](#create-brewery)
       * [Get brewery by ID](#get-brewery-by-id) 
-      * [Delete brewery by ID](#delete-brewery-by-id)
       * [Update brewery by ID](#update-brewery-by-id)
+      * [Delete brewery by ID](#delete-brewery-by-id)      
       * [Get brewery styles](#get-brewery-styles) 
       * [Get brewery beers by style](#get-brewery-beers-by-style)     
-      * [Get beers for specific brewery](#get-beers-for-specific-brewery)       
+      * [Get beers for specific brewery](#get-beers-for-specific-brewery) 
+    * [BEERS](#breweries)
+      * [Get all beers](#get-all-beers) 
+      * [Create new beer](#create-beer)
+      * [Get beer by ID](#get-beer-by-id) 
+      * [Update brewery by ID](#update-beer-by-id)
+      * [Delete brewery by ID](#delete-beer-by-id)
+    * [STYLES](#breweries)
+      * [Get all beers](#get-all-styles) 
+      * [Create new beer](#create-style)
+      * [Get beer by ID](#get-style-by-id) 
+      * [Update brewery by ID](#update-style-by-id)
+      * [Delete brewery by ID](#delete-style-by-id)                   
   * [Data Storage](#data-storage)
   * [Security](#security)
 <!--te--> 
@@ -139,17 +151,17 @@ Beers, Breweries, Style (Lager, IPA, Hazy)
 #### Get brewery beers by style
 #### Get beers for specific brewery
 
-#### GET /beers
-#### POST /beers
-#### GET /beers/:beerID
-#### PUT /beers/:beerID 
-#### DELETE /beers/:beerID 
+#### Get all beers
+#### Create beer
+#### Get beer by ID
+#### Update beer by ID
+#### Delete beer by ID
 
-#### GET /styles
-#### POST /styles
-#### GET /styles/:styleID
-#### PUT /styles/:styleID 
-#### DELETE /styles/:styleID 
+#### Get all styles
+#### Create style
+#### Get style by ID
+#### Update style by ID
+#### Delete style by ID
 
 ## Data Storage
 
