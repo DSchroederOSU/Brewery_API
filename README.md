@@ -1,6 +1,17 @@
 ## API Description
 
-This API will act as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is like. Beer data fields can be as broad as beer name and type or go as explicit as the IBU and alcohol content.
+This API was a final project for my CS 493 (Cloud Application Development) course at Oregon State University. This API acts as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is all about. Beer data fields can be as broad as beer name and type or go as explicit as the IBU and alcohol content. This project was a chance for me to explore, and implement, a variety of cutting-edge technologies and concepts that are standard in cloud application development including:
+* Docker and Docker-compose containerization
+* JSON Web Tokens
+* Redis as data store
+* Multi-container applications
+* Shifting MySQL schemas -> MongoDB schemas with [mongoose.js](http://mongoosejs.com/)
+* [Token-bucket algorithm](https://en.wikipedia.org/wiki/Token_bucket) for rate limiting with Redis
+* [Wait-for-it.sh](https://github.com/vishnubob/wait-for-it) style container start-up management
+* Regex expressions for search queries
+* Using mongoose.js to convert NoSQL-style databases into relational entities.
+* JavaScript module/exports modularization
+
 
 [![Build Status](https://travis-ci.org/DSchroederOSU/Brewery_API.svg?branch=master)](https://travis-ci.org/DSchroederOSU/Brewery_API)
 # Table of Contents 
