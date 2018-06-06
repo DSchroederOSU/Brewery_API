@@ -1,6 +1,6 @@
 ## API Description
 
-This API was a final project for my CS 493 (Cloud Application Development) course at Oregon State University. This API acts as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is all about. Beer data fields can be as broad as beer name and type or go as explicit as the IBU and alcohol content. This project was a chance for me to explore, and implement, a variety of cutting-edge technologies and concepts that are standard in cloud application development including:
+This API was a final project for my CS 493 (Cloud Application Development) course at Oregon State University. This API acts as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is all about. Beer data fields can be as broad as beer name and type, or go as explicit as the International Bitterness Units (ibu) and Alcohol by Volume (abv) value. This project was a chance for me to explore, and implement, a variety of cutting-edge technologies and concepts that are standard in cloud application development including:
 * Docker and Docker-compose containerization
 * JSON Web Tokens
 * Redis as data store
@@ -12,6 +12,7 @@ This API was a final project for my CS 493 (Cloud Application Development) cours
 * Using mongoose.js to convert NoSQL-style databases into relational entities.
 * JavaScript module/exports modularization
 
+It is known that this API contains security concerns.
 
 [![Build Status](https://travis-ci.org/DSchroederOSU/Brewery_API.svg?branch=master)](https://travis-ci.org/DSchroederOSU/Brewery_API)
 # Table of Contents 
@@ -58,7 +59,42 @@ Daniel Schroeder <schrodan@oregonstate.edu>
 
 ## Nouns
 
-Beers, Breweries, Style (Lager, IPA, Hazy)
+Brewery
+```JavaScript
+const brewerySchema = mongoose.Schema({
+    name: { type: String, required: true },
+    website: { type: String, required: false },
+    facebook_url: { type: String, required: false },
+    twitter_url: { type: String, required: false },
+    phone: { type: String, required: true },
+    address: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    zip: { type: Number, required: true },
+    beers : [{ type: Schema.Types.ObjectId, ref: 'Beer' }],
+});
+```
+
+Beer
+```JavaScript
+const beerSchema = mongoose.Schema({
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    created_on: Date,
+    in_stores: { type: Boolean, required: true },
+    ibu: { type: Number, required: true },
+    abv:{ type: Number, required: true },
+    brewery: { type: Schema.Types.ObjectId, ref: 'Brewery' },
+    style: { type: Schema.Types.ObjectId, ref: 'Style' },
+});
+```
+
+Style
+```JavaScript
+const styleSchema = mongoose.Schema({
+    name: { type: String, required: true }
+});
+```
 
 ## API Endpoints
 ### Breweries
@@ -169,37 +205,7 @@ Beers, Breweries, Style (Lager, IPA, Hazy)
 ## Data Storage
 
 Using [mongoose.js](http://mongoosejs.com/) for schema definitions and MongoDB modeling.
-
-```JavaScript
-const brewerySchema = mongoose.Schema({
-    name: { type: String, required: true },
-    website: { type: String, required: false },
-    facebook_url: { type: String, required: false },
-    twitter_url: { type: String, required: false },
-    phone: { type: String, required: true },
-    address: { type: String, required: true },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    zip: { type: Number, required: true },
-    beers : [{ type: Schema.Types.ObjectId, ref: 'Beer' }],
-});
-
-const styleSchema = mongoose.Schema({
-    name: { type: String, required: true }
-});
-
-const beerSchema = mongoose.Schema({
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    created_on: Date,
-    in_stores: { type: Boolean, required: true },
-    ibu: { type: Number, required: true },
-    abv:{ type: Number, required: true },
-    brewery: { type: Schema.Types.ObjectId, ref: 'Brewery' },
-    style: { type: Schema.Types.ObjectId, ref: 'Style' },
-});
-```
-
+ 
 ## Security
 This system will implement JWT-based authentication and potentially include rate-limiting access based on user-specific API keys.
 
