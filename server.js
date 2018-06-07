@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 
-const port = process.env.PORT || 3000;
+const port = process.env.API_PORT || 3000;
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -27,9 +27,13 @@ connect to all databases in promise format
  */
 const {connectToRedis, connectToMongo} = require('./lib/db');
 Promise.all([connectToRedis(), connectToMongo()])
-    .then(function() {
-
+    .then(()=>{
+        app.listen(port, function(){
+            console.log("Server running on port : 3000");
+        });
     })
     .catch((err)=>{
         console.log(err);
     });
+
+module.exports = app;
