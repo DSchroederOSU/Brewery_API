@@ -145,12 +145,6 @@ const userSchema = mongoose.Schema({
                   },
                   {
                       "name": "An IPA"
-                  },
-                  {
-                      "name": "An DIPA"
-                  },
-                  {
-                      "name": "My second DIPA"
                   }
               ],
               "_id": "5b149c984959fea7157713bf",
@@ -233,3 +227,8 @@ Using MongoDB to store all API documents.
 #  Security
 This system will implement JWT-based authentication and potentially include rate-limiting access based on user-specific API keys.
 
+## Credits
+[Daniel Schroeder](https://github.com/DSchroederOSU/)
+
+## License
+The MIT License (MIT). Please see [License File](https://github.com/DSchroederOSU/Brewery_API/blob/master/LICENSE) for more information.
