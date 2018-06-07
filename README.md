@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/DSchroederOSU/Brewery_API.svg?branch=master)](https://travis-ci.org/DSchroederOSU/Brewery_API)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/DSchroederOSU/Brewery_API/blob/master/LICENSE)
 
 #  API Description
 
@@ -60,10 +60,6 @@ It is known that this API contains security concerns.
     * [MongoDB](#mongodb)
   * [Security](#security)
 <!--te--> 
-
-#  Team Members
-
-Daniel Schroeder <schrodan@oregonstate.edu>
 
 #  Nouns
 
