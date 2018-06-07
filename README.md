@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/DSchroederOSU/Brewery_API.svg?branch=master)](https://travis-ci.org/DSchroederOSU/Brewery_API)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 #  API Description
 
 This API was a final project for my CS 493 (Cloud Application Development) course at Oregon State University. This API acts as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is all about. Beer data fields can be as broad as beer name and type, or go as explicit as the International Bitterness Units (ibu) and Alcohol by Volume (abv) value. This project was a chance for me to explore, and implement, a variety of cutting-edge technologies and concepts that are standard in cloud application development including:
@@ -19,7 +22,6 @@ This repository should run out of the box if your machine has Docker installed.
 Will spin up the database containers and the api container and effectively create a fully functioning API.
 It is known that this API contains security concerns.
 
-[![Build Status](https://travis-ci.org/DSchroederOSU/Brewery_API.svg?branch=master)](https://travis-ci.org/DSchroederOSU/Brewery_API)
 # Table of Contents 
 
 <!--ts-->
