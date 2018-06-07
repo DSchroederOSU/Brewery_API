@@ -12,6 +12,11 @@ This API was a final project for my CS 493 (Cloud Application Development) cours
 * Using mongoose.js to convert NoSQL-style databases into relational entities.
 * JavaScript module/exports modularization
 
+This repository should run out of the box if your machine has Docker installed.
+
+```docker-compose up```
+
+Will spin up the database containers and the api container and effectively create a fully functioning API.
 It is known that this API contains security concerns.
 
 [![Build Status](https://travis-ci.org/DSchroederOSU/Brewery_API.svg?branch=master)](https://travis-ci.org/DSchroederOSU/Brewery_API)
@@ -53,12 +58,6 @@ It is known that this API contains security concerns.
     * [MongoDB](#mongodb)
   * [Security](#security)
 <!--te--> 
-
-This repository should run out of the box if your machine has Docker installed.
-
-```docker-compose up```
-
-Will spin up the database containers and the api container and effectively create a fully functioning API.
 
 #  Team Members
 
@@ -211,6 +210,7 @@ const userSchema = mongoose.Schema({
 ### Get style by ID
 ### Update style by ID
 ### Delete style by ID
+
 
 #  Data Storage
 
