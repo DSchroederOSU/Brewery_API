@@ -1,15 +1,3 @@
 language: node_js # Sets which engine use to build the project
 node_js: "node"="latest" # Specifies node version to use "node"="latest"
-services:
-  - docker
-env:
-  - DOCKER_COMPOSE_VERSION=1.4.2
-
-before_install:
- - curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
- - chmod +x docker-compose
- - sudo mv docker-compose /usr/local/bin
-
-script:
-  - docker-compose build
-  - docker-compose up
+ 

@@ -1,20 +1,19 @@
-FROM node:9
+#Grab the latest node image
+FROM node:alpine
 
+# Create app directory
+RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-# Copy out package and package-lock files into /user/src/app
-COPY package*.json ./
-
-# npm install will look at package.json and install deps
+# Install app dependencies
+COPY package.json /usr/src/app/
 RUN npm install
 
-# copy everything into current dir of image
-COPY . .
+# Bundle app source
+COPY . /usr/src/app
 
-# set up run time environment
-ENV PORT=3000
+# Expose port from container so host can access $PORT
+EXPOSE $PORT
 
-EXPOSE ${PORT}
-
-# command instruction lets us specify the default command to be executed
+# Run the image as a non-root user
 CMD [ "npm", "start" ]
