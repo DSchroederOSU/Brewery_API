@@ -33,39 +33,41 @@ router.post('/login', function (req, res) {
     let token;
 
 
-    mongodb.collection('users').findOne({username: req.body.username})
-        .then((user) => {
-            // will return null user if username does not exist
-            if(user){
-                session_user = user;
-                console.log(session_user);
-                // module for bycrypt checkPassword function to compare password against hash in db
-                return auth.checkPassword( req.body.password, session_user.password);
-            } else {
-                return Promise.reject(401);
-            }
-        })
-        // confirm password and user are correct
-        .then(() => {
-            return addToRedis(req.ip);
-        })
-        .then(()=>{
-            // if the user was authenticated, we will generate the jwt and add call the addToRedis function
-            return auth.generateAuthToken(req.body.username);
-        })
-        .then((token)=>{
-            // if the api key was successfully added to the redis db
-            // return jwt to the user
-            res.status(200).send({ auth: true, token: token });
-        })
-        .catch((err)=>{
-            if(err === 401){
-                res.status(401).json({err: " Invalid credentials."});
-            } else {
-                res.status(500).json({err: err});
-            }
+    User.findOne({username: req.body.username})
+      .exec()
+      .then((user) => {
+          // will return null user if username does not exist
+          console.log(user)
+          if(user){
+              session_user = user;
+              console.log(session_user);
+              // module for bycrypt checkPassword function to compare password against hash in db
+              return auth.checkPassword( req.body.password, session_user.password);
+          } else {
+              return Promise.reject(401);
+          }
+      })
+      // confirm password and user are correct
+      .then(() => {
+          return addToRedis(req.ip);
+      })
+      .then(()=>{
+          // if the user was authenticated, we will generate the jwt and add call the addToRedis function
+          return auth.generateAuthToken(req.body.username);
+      })
+      .then((token)=>{
+          // if the api key was successfully added to the redis db
+          // return jwt to the user
+          res.status(200).send({ auth: true, token: token });
+      })
+      .catch((err)=>{
+          if(err === 401){
+              res.status(401).json({err: " Invalid credentials."});
+          } else {
+              res.status(500).json({err: err});
+          }
 
-        });
+      });
 
 });
 
@@ -92,7 +94,8 @@ router.post('/signup', function (req, res) {
         .catch((err)=>{
             console.log(err);
         });
-        mongodb.collection('users').findOne({username: req.body.username})
+        User.findOne({username: req.body.username})
+            .exec()
             .then((user)=> {
                 if(user){
                     return Promise.reject({status: 400, message: "That username already exists."});
@@ -104,12 +107,21 @@ router.post('/signup', function (req, res) {
                         password : auth.hashPassword(req.body.password),
                         api_key :  crypto.randomBytes(48).toString('hex')
                     };
-                    return mongodb.collection('users').insertOne(user);
+                    var new_user = new User(user);
+                    new_user.save(function (err, user) {
+                        if (err) {
+                            return Promise.reject({status: 400, message: err.message});
+                        } else {
+                            return user;
+                        }
+                    });
                 }
             })
-            .then(() => {
+            .then((user) => {
+              console.log("%%%%%%%%%%%%%%%%")
+              console.log(user)
                 // User was successfully created with a hashed password
-                res.status(201).send({ message: "User successfully added."});
+                res.status(201).send({ message: "User successfully added.", user: user});
             })
             .catch((err)=>{
                 if(err.status){
