@@ -112,14 +112,13 @@ router.post('/signup', function (req, res) {
                         if (err) {
                             return Promise.reject({status: 400, message: err.message});
                         } else {
+                            // doesnt get passed
                             return user;
                         }
                     });
                 }
             })
             .then((user) => {
-              console.log("%%%%%%%%%%%%%%%%")
-              console.log(user)
                 // User was successfully created with a hashed password
                 res.status(201).send({ message: "User successfully added.", user: user});
             })
