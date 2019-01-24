@@ -11,8 +11,10 @@ require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
+var cors = require('cors');
+app.use(cors());
 
-const port = process.env.API_PORT || 3000;
+const port = process.env.PORT;
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -29,7 +31,7 @@ const {connectToRedis, connectToMongo} = require('./lib/db');
 Promise.all([connectToRedis(), connectToMongo()])
     .then(()=>{
         app.listen(port, function(){
-            console.log("Server running on port : 3000");
+            console.log(`Server running on port : ${process.env.PORT}`);
         });
     })
     .catch((err)=>{
