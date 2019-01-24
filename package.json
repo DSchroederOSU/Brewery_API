@@ -15,14 +15,18 @@
     "mongoose": "^5.1.1",
     "mysql": "^2.15.0",
     "redis": "^2.8.0",
-    "request": "^2.85.0",
-    "uniqid": "^4.1.1"
+    "request": "^2.85.0"
   },
   "devDependencies": {
-    "nodemon": "^1.17.5"
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "jest": "^23.1.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.17.5",
+    "nyc": "^12.0.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node server.js",
     "dev": "NODE_ENV=development nodemon server.js",
     "build": "docker-compose -f dev-compose.yml up",

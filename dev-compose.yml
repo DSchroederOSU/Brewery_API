@@ -1,9 +1,7 @@
-# Use root/example as user/password credentials
 version: '3.6'
-
 services:
   redis:
-    container_name: "redis"
+    container_name: redis
     image: redis
     restart: always
     ports:
@@ -24,26 +22,10 @@ services:
       - MONGO_INITDB_DATABASE=breweryAPI
     ports:
       - 27017:27017
-
-  api:
-    build: .
-    restart: always
-    container_name: "brewery"
-    depends_on:
-      - "mongodb"
-      - "redis"
-    environment:
-      REDIS_HOST: redis
-      MONGO_HOST: mongodb
-      MONGO_DATABASE: breweryAPI
-      MONGO_USER: breweryUser
-      MONGO_PASSWORD: breweryPassword
-    ports:
-      - 3000:3000
-    command:  bash -c "./wait-for-it.sh mongodb:27017 -- node server.js"
-
 volumes:
   mongodb-vol:
     name: mongo-vol
   redis-vol:
     name: redis-vol
+
+# docker-compose -f dev-compose.yml up

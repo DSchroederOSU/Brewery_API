@@ -1,58 +1,129 @@
-# Table of Contents 
+[![Build Status](https://travis-ci.org/DSchroederOSU/Brewery_API.svg?branch=master)](https://travis-ci.org/DSchroederOSU/Brewery_API)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/DSchroederOSU/Brewery_API/blob/master/LICENSE)
 
-<!--ts-->
-   * [API Description](#api-description)
-   * [Team Members](#team-members)
-   * [Nouns](#nouns)
-   * [API Endpoints](#api-endpoints)
-      * [GET Breweries](#get-breweries) 
-   * [Data Storage](#data-storage)
-   * [Security](#security)
-<!--te--> 
+#  API Description
+
+This API was a final project for my CS 493 (Cloud Application Development) course at Oregon State University. This API acts as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is all about. Beer data fields can be as broad as beer name and type, or go as explicit as the International Bitterness Units (ibu) and Alcohol by Volume (abv) value. This project was a chance for me to explore, and implement, a variety of cutting-edge technologies and concepts that are standard in cloud application development including:
+* Docker and Docker-compose containerization
+* JSON Web Tokens
+* Redis as data store
+* Multi-container applications
+* Shifting MySQL schemas -> MongoDB schemas with [mongoose.js](http://mongoosejs.com/)
+* [Token-bucket algorithm](https://en.wikipedia.org/wiki/Token_bucket) for rate limiting with Redis
+* [Wait-for-it.sh](https://github.com/vishnubob/wait-for-it) style container start-up management
+* Regex expressions for search queries
+* Using mongoose.js to convert NoSQL-style databases into relational entities.
+* JavaScript module/exports modularization
 
 This repository should run out of the box if your machine has Docker installed.
 
 ```docker-compose up```
 
 Will spin up the database containers and the api container and effectively create a fully functioning API.
+It is known that this API contains security concerns.
 
-## API Description
+# Table of Contents 
 
-This API will act as service for information related to beers and breweries. Specifically, what breweries are “currently” serving what beer, and what that beer is like. Beer data fields can be as broad as beer name and type or go as explicit as the IBU and alcohol content.
+<!--ts-->
+  * [API Description](#api-description)
+  * [Team Members](#team-members)
+  * [Nouns](#nouns)
+    * [Brewery](#brewery)
+    * [Beer](#beer)
+    * [Style](#style)
+    * [User](#user)
+  * [API Endpoints](#api-endpoints)
+    * [Breweries](#breweries)
+      * [Get all breweries](#get-all-breweries) 
+      * [Create new brewery](#create-brewery)
+      * [Get brewery by ID](#get-brewery-by-id) 
+      * [Update brewery by ID](#update-brewery-by-id)
+      * [Delete brewery by ID](#delete-brewery-by-id)      
+      * [Get brewery styles](#get-brewery-styles) 
+      * [Get brewery beers by style](#get-brewery-beers-by-style)     
+      * [Get beers for specific brewery](#get-beers-for-specific-brewery) 
+    * [Beers](#beers)
+      * [Get all beers](#get-all-beers) 
+      * [Create new beer](#create-beer)
+      * [Get beer by ID](#get-beer-by-id) 
+      * [Update beer by ID](#update-beer-by-id)
+      * [Delete beer by ID](#delete-beer-by-id)
+    * [Styles](#styles)
+      * [Get all styles](#get-all-styles) 
+      * [Create new style](#create-style)
+      * [Get style by ID](#get-style-by-id) 
+      * [Update style by ID](#update-style-by-id)
+      * [Delete style by ID](#delete-style-by-id)                   
+  * [Data Storage](#data-storage)
+    * [Mongoose.js](#mongoose-js)
+    * [Redis](#redis)
+    * [MongoDB](#mongodb)
+  * [Security](#security)
+<!--te--> 
 
-## Team Members
+#  Nouns
 
-Daniel Schroeder <schrodan@oregonstate.edu>
+## Brewery
+```JavaScript
+const brewerySchema = mongoose.Schema({
+    name: { type: String, required: true },
+    website: { type: String, required: false },
+    facebook_url: { type: String, required: false },
+    twitter_url: { type: String, required: false },
+    phone: { type: String, required: true },
+    address: { type: String, required: true },
+    city: { type: String, required: true },
+    state: { type: String, required: true },
+    zip: { type: Number, required: true },
+    beers : [{ type: Schema.Types.ObjectId, ref: 'Beer' }],
+});
+```
 
-## Nouns:
+## Beer
+```JavaScript
+const beerSchema = mongoose.Schema({
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    created_on: Date,
+    in_stores: { type: Boolean, required: true },
+    ibu: { type: Number, required: true },
+    abv:{ type: Number, required: true },
+    brewery: { type: Schema.Types.ObjectId, ref: 'Brewery' },
+    style: { type: Schema.Types.ObjectId, ref: 'Style' },
+});
+```
 
-Beers, Breweries, Style (Lager, IPA, Hazy)
+## Style
+```JavaScript
+const styleSchema = mongoose.Schema({
+    name: { type: String, required: true }
+});
+```
 
-## API Endpoints
+## User
+```JavaScript
+const userSchema = mongoose.Schema({
+    username: { type: String, required: true },
+    password: { type: String, required: true },
+    api_key: { type: String, required: true }
+});
+```
 
+#  API Endpoints
+## Breweries
 ### Get all breweries
 
    A collection of all breweries in the database.
  
-* **URL**
+* **URL:** /breweries
 
-  /breweries
-
-* **Method:** 
-
-  `GET` 
+* **Method:**  `GET` 
   
 *  **URL Params**
-
-   `None`
    
-   **Required:**
- 
-   `None`
+   **Required:** `None`
 
-   **Optional:**
-   
-   An optional search query that will run as a $Regex expression on the "name" field
+   **Optional:**  An optional search query that will run as a $Regex expression on the "name" field
    
    `search=String`
 
@@ -74,12 +145,6 @@ Beers, Breweries, Style (Lager, IPA, Hazy)
                   },
                   {
                       "name": "An IPA"
-                  },
-                  {
-                      "name": "An DIPA"
-                  },
-                  {
-                      "name": "My second DIPA"
                   }
               ],
               "_id": "5b149c984959fea7157713bf",
@@ -113,71 +178,57 @@ Beers, Breweries, Style (Lager, IPA, Hazy)
  
 * **Error Response:**
 
-  <_Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be._>
-
   * **Code:** 500 Server Error <br />
-    **Content:** `{ error : error" }`
+    **Content:** `{ error : "error" }`
 
-* **Notes:**
+### Create brewery
+### Get brewery by ID
+### Delete brewery by ID
+### Update brewery by ID
+### Get brewery styles
+### Get brewery beers by style
+### Get beers for specific brewery
 
-  <_This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here._> 
- 
+## Beers
+### Get all beers
+### Create beer
+### Get beer by ID
+### Update beer by ID
+### Delete beer by ID
 
-### POST /breweries
-### GET /breweries/:breweryID
-### DELETE /breweries/:breweryID
-### PUT /breweries/:breweryID
-### GET /breweries/:breweryID/styles
-### GET /breweries/:breweryID/styles/:styleID
-### GET /breweries//:breweryID/beers
+## Styles
+### Get all styles
+### Create style
+### Get style by ID
+### Update style by ID
+### Delete style by ID
 
-### GET /beers
-### POST /beers
-### GET /beers/:beerID
-### PUT /beers/:beerID 
-### DELETE /beers/:beerID 
 
-### GET /styles
-### POST /styles
-### GET /styles/:styleID
-### PUT /styles/:styleID 
-### DELETE /styles/:styleID 
+#  Data Storage
 
-## Data Storage
+## Mongoose js 
+
+<img src="./assets/mongoosejs.png" alt="s" width="500px"/>
 
 Using [mongoose.js](http://mongoosejs.com/) for schema definitions and MongoDB modeling.
 
-```JavaScript
-const brewerySchema = mongoose.Schema({
-    name: { type: String, required: true },
-    website: { type: String, required: false },
-    facebook_url: { type: String, required: false },
-    twitter_url: { type: String, required: false },
-    phone: { type: String, required: true },
-    address: { type: String, required: true },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    zip: { type: Number, required: true },
-    beers : [{ type: Schema.Types.ObjectId, ref: 'Beer' }],
-});
+## Redis  
 
-const styleSchema = mongoose.Schema({
-    name: { type: String, required: true }
-});
+<img src="./assets/redis.png" alt="s" width="500px"/>
 
-const beerSchema = mongoose.Schema({
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    created_on: Date,
-    in_stores: { type: Boolean, required: true },
-    ibu: { type: Number, required: true },
-    abv:{ type: Number, required: true },
-    brewery: { type: Schema.Types.ObjectId, ref: 'Brewery' },
-    style: { type: Schema.Types.ObjectId, ref: 'Style' },
-});
-```
+Using Redis for rate limiting.
 
-## Security
+## MongoDB  
+
+<img src="./assets/mongodb.png" alt="s" width="500px"/> 
+
+Using MongoDB to store all API documents.
+
+#  Security
 This system will implement JWT-based authentication and potentially include rate-limiting access based on user-specific API keys.
 
+## Credits
+[Daniel Schroeder](https://github.com/DSchroederOSU/)
 
+## License
+The MIT License (MIT). Please see [License File](https://github.com/DSchroederOSU/Brewery_API/blob/master/LICENSE) for more information.
