@@ -5,11 +5,11 @@ const brewerySchema = mongoose.Schema({
     website: { type: String, required: false },
     facebook_url: { type: String, required: false },
     twitter_url: { type: String, required: false },
-    phone: { type: String, required: true },
+    phone: { type: String, required: false },
     address: { type: String, required: true },
     city: { type: String, required: true },
     state: { type: String, required: true },
-    zip: { type: Number, required: true },
+    zip: { type: Number, required: false },
     beers : [{ type: Schema.Types.ObjectId, ref: 'Beer' }],
 });
 
@@ -21,7 +21,7 @@ const beerSchema = mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     created_on: Date,
-    in_stores: { type: Boolean, required: true },
+    in_stores: { type: Boolean, required: false },
     ibu: { type: Number, required: true },
     abv:{ type: Number, required: true },
     brewery: { type: Schema.Types.ObjectId, ref: 'Brewery' },
