@@ -6,7 +6,7 @@ const brewerySchema = mongoose.Schema({
     facebook_url: { type: String, required: false },
     twitter_url: { type: String, required: false },
     phone: { type: String, required: false },
-    address: { type: String, required: true },
+    address: { type: String, required: false },
     city: { type: String, required: true },
     state: { type: String, required: true },
     zip: { type: Number, required: false },
